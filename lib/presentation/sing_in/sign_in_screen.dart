@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:food_recipe_app/presentation/sing_in/big_button.dart';
 import 'package:food_recipe_app/presentation/sing_in/input_field.dart';
 import 'package:food_recipe_app/presentation/sing_in/social_button.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
@@ -48,34 +48,10 @@ class SignInScreen extends StatelessWidget {
                   style: TextStyles.smallTextRegular
                       .copyWith(color: ColorStyles.secondary100)),
               const SizedBox(height: 25),
-              SizedBox(
+              const SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 18),
-                    backgroundColor: ColorStyles.primary100,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Sign In',
-                          style: TextStyles.normalTextBold.copyWith(
-                            color: ColorStyles.white,
-                          )),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Icon(
-                        Icons.arrow_forward,
-                        color: ColorStyles.white,
-                        size: 20,
-                      )
-                    ],
-                  ),
+                child: BigButton(
+                  label: 'Sign In',
                 ),
               ),
               const SizedBox(height: 20),
