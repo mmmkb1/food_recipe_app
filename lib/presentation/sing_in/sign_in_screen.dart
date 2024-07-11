@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/presentation/sing_in/big_button.dart';
-import 'package:food_recipe_app/presentation/sing_in/input_field.dart';
-import 'package:food_recipe_app/presentation/sing_in/social_button.dart';
+import 'package:food_recipe_app/presentation/component/big_button.dart';
+import 'package:food_recipe_app/presentation/component/input_field.dart';
+import 'package:food_recipe_app/presentation/component/social_button.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
