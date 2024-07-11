@@ -36,8 +36,11 @@ class SignInScreen extends StatelessWidget {
                 const SizedBox(
                   height: 57,
                 ),
-                const InputField(
+                InputField(
                   label: 'Email',
+                  onChanged: () {
+                    print('Email field changed');
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -50,11 +53,13 @@ class SignInScreen extends StatelessWidget {
                     style: TextStyles.smallTextRegular
                         .copyWith(color: ColorStyles.secondary100)),
                 const SizedBox(height: 25),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
                   child: BigButton(
-                    label: 'Sign In',
-                  ),
+                      label: 'Sign In',
+                      onPressed: () {
+                        print('Sign In button pressed');
+                      }),
                 ),
                 const SizedBox(height: 20),
                 const Row(

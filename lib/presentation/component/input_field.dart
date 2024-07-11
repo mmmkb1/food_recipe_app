@@ -5,7 +5,13 @@ import 'package:food_recipe_app/ui/text_styles.dart';
 class InputField extends StatelessWidget {
   final String label;
   final bool isPassword;
-  const InputField({super.key, required this.label, this.isPassword = false});
+  final void Function()? onChanged;
+
+  const InputField(
+      {super.key,
+      required this.label,
+      this.isPassword = false,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +20,9 @@ class InputField extends StatelessWidget {
       children: [
         Text(label, style: TextStyles.smallTextRegular),
         TextField(
+          onChanged: (value) {
+            onChanged?.call();
+          },
           obscureText: isPassword,
           decoration: InputDecoration(
             hintText: 'Enter $label',

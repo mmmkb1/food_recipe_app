@@ -4,9 +4,12 @@ import 'package:food_recipe_app/ui/text_styles.dart';
 
 class BigButton extends StatefulWidget {
   final String label;
+  final void Function()? onPressed;
+
   const BigButton({
     super.key,
     required this.label,
+    this.onPressed,
   });
 
   @override
@@ -20,6 +23,7 @@ class _BigButtonState extends State<BigButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
+        widget.onPressed?.call();
         setState(() {
           isPressed = !isPressed;
         });
