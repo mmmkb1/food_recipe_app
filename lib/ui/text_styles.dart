@@ -1,117 +1,102 @@
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class TextStyles {
-  static TextStyle tittleTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle _textStyle({
+    required double fontSize,
+    required FontWeight fontWeight,
+    required double height,
+  }) {
+    return TextStyle(
+      fontFamily: GoogleFonts.poppins().fontFamily,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      height: height,
+      letterSpacing: 0,
+    );
+  }
+
+  static TextStyle tittleTextBold = _textStyle(
     fontSize: 50,
     fontWeight: FontWeight.bold,
     height: 75 / 50,
-    letterSpacing: 0,
   );
 
-  static TextStyle headerTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle headerTextBold = _textStyle(
     fontSize: 30,
     fontWeight: FontWeight.bold,
     height: 45 / 30,
-    letterSpacing: 0,
   );
 
-  static TextStyle largeTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle largeTextBold = _textStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
     height: 30 / 20,
-    letterSpacing: 0,
   );
 
-  static TextStyle mediumTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle mediumTextBold = _textStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
     height: 27 / 18,
-    letterSpacing: 0,
   );
 
-  static TextStyle normalTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle normalTextBold = _textStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
     height: 24 / 16,
-    letterSpacing: 0,
   );
 
-  static TextStyle smallTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle smallTextBold = _textStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
     height: 21 / 14,
-    letterSpacing: 0,
   );
 
-  static TextStyle smallerTextBold = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle smallerTextBold = _textStyle(
     fontSize: 11,
     fontWeight: FontWeight.bold,
     height: 17 / 11,
-    letterSpacing: 0,
   );
 
-  static TextStyle tittleTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle tittleTextRegular = _textStyle(
     fontSize: 50,
     fontWeight: FontWeight.normal,
     height: 75 / 50,
-    letterSpacing: 0,
   );
 
-  static TextStyle headerTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle headerTextRegular = _textStyle(
     fontSize: 30,
     fontWeight: FontWeight.normal,
     height: 45 / 30,
-    letterSpacing: 0,
   );
 
-  static TextStyle largeTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle largeTextRegular = _textStyle(
     fontSize: 20,
     fontWeight: FontWeight.normal,
     height: 30 / 20,
-    letterSpacing: 0,
   );
 
-  static TextStyle mediumTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle mediumTextRegular = _textStyle(
     fontSize: 18,
     fontWeight: FontWeight.normal,
     height: 27 / 18,
-    letterSpacing: 0,
   );
 
-  static TextStyle normalTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle normalTextRegular = _textStyle(
     fontSize: 16,
     fontWeight: FontWeight.normal,
     height: 24 / 16,
-    letterSpacing: 0,
   );
 
-  static TextStyle smallTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle smallTextRegular = _textStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
     height: 21 / 14,
-    letterSpacing: 0,
   );
 
-  static TextStyle smallerTextRegular = TextStyle(
-    fontFamily: GoogleFonts.poppins().fontFamily,
+  static TextStyle smallerTextRegular = _textStyle(
     fontSize: 11,
     fontWeight: FontWeight.normal,
     height: 17 / 11,
-    letterSpacing: 0,
   );
 }
