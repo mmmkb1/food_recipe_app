@@ -10,9 +10,9 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: Padding(
+    return Scaffold(
+      body: SafeArea(
+          child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: SizedBox(
           width: double.infinity,
