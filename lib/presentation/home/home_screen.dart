@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/data/repository/recipe_repository.dart';
 import 'package:food_recipe_app/presentation/saved_recipes/saved_recipes_view.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final RecipeRepository _recipeRepository;
+
+  const HomeScreen({super.key, required RecipeRepository recipeRepository})
+      : _recipeRepository = recipeRepository;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -12,13 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 1;
-
-  static final List<Widget> _widgetOptions = <Widget>[
-    const Text('Home Page'),
-    SavedRecipesView(),
-    const Text('Notification Page'),
-    const Text('Profile Page'),
-  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -28,9 +25,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> widgetOptions = <Widget>[
+      const Text('Home Page'),
+      SavedRecipesView(
+        recipeRepository: widget._recipeRepository,
+      ),
+      const Text('Notification Page'),
+      const Text('Profile Page'),
+    ];
+
     return Scaffold(
       body: SafeArea(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed, // Added this line

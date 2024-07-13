@@ -1,48 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/data/core/result.dart';
+import 'package:food_recipe_app/data/model/recipe.dart';
+import 'package:food_recipe_app/data/repository/recipe_repository.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
-import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
 class SavedRecipesView extends StatelessWidget {
-  SavedRecipesView({super.key});
-  List<RecipeCard> recipes = [
-    RecipeCard(
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2015/04/08/13/13/pasta-712664_1280.jpg',
-      title: 'Spaghetti Carbonara',
-      chef: 'Gordon Ramsay',
-      rating: 4.5,
-      cookTime: 30,
-      isFavorite: true,
-    ),
-    RecipeCard(
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2020/10/11/05/06/chicken-5644762_1280.jpg',
-      title: 'Chicken Parmesan',
-      chef: 'Jamie Oliver',
-      rating: 4.2,
-      cookTime: 45,
-      isFavorite: false,
-    ),
-    RecipeCard(
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2024/04/13/11/29/muffins-8693748_1280.jpg',
-      title: 'Chocolate Cake',
-      chef: 'Nigella Lawson',
-      rating: 4.8,
-      cookTime: 60,
-      isFavorite: true,
-    ),
-    RecipeCard(
-      imageUrl:
-          'https://cdn.pixabay.com/photo/2019/07/25/01/23/beef-4361462_1280.jpg',
-      title: 'Beef Stir Fry',
-      chef: 'Bobby Flay',
-      rating: 4.0,
-      cookTime: 20,
-      isFavorite: false,
-    ),
-  ];
+  final RecipeRepository _recipeRepository;
+
+  const SavedRecipesView(
+      {super.key, required RecipeRepository recipeRepository})
+      : _recipeRepository = recipeRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +23,49 @@ class SavedRecipesView extends StatelessWidget {
             style: TextStyles.mediumTextBold,
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: recipes.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    recipes[index],
-                    const SizedBox(height: 10),
-                  ],
-                );
-              },
-            ),
+            child: FutureBuilder<Result<List<Recipe>>>(
+                future: _recipeRepository
+                    .getRecipes(), // Correctly passing the future
+                builder: (BuildContext context,
+                    AsyncSnapshot<Result<List<Recipe>>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final result = snapshot.data!;
+
+                  switch (result) {
+                    case Error<List<Recipe>>():
+                      return Text(result.e);
+                    case Success<List<Recipe>>():
+                      return ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
+                        itemCount: result.data.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              RecipeCard(
+                                imageUrl: result.data[index].imageUrl,
+                                title: result.data[index].title,
+                                chef: result.data[index].chef,
+                                rating: result.data[index].rating,
+                                cookTime: result.data[index].cookTime,
+                                isFavorite: result.data[index].isFavorite,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                  }
+                }),
           ),
         ],
       ),
