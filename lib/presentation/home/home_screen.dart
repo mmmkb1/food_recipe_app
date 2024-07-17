@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/data/repository/recipe_repository.dart';
-import 'package:food_recipe_app/presentation/saved_recipes/saved_recipes_view.dart';
+import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
-      const Text('Home Page'),
+      const SignInScreen(),
       SavedRecipesView(
         recipeRepository: widget._recipeRepository,
       ),

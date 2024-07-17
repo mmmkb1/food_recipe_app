@@ -4,6 +4,7 @@ import 'package:food_recipe_app/presentation/component/input_field.dart';
 import 'package:food_recipe_app/presentation/component/social_button.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
+import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -38,6 +39,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 InputField(
                   label: 'Email',
+                  hint: 'Enter Email',
                   onChanged: () {
                     print('Email field changed');
                   },
@@ -47,6 +49,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 const InputField(
                   label: 'Password',
+                  hint: 'Enter Password',
                 ),
                 const SizedBox(height: 20),
                 Text('Forgot Password?',
@@ -58,7 +61,7 @@ class SignInScreen extends StatelessWidget {
                   child: BigButton(
                       label: 'Sign In',
                       onPressed: () {
-                        print('Sign In button pressed');
+                        context.go('/saved_recipes');
                       }),
                 ),
                 const SizedBox(height: 20),
@@ -104,9 +107,12 @@ class SignInScreen extends StatelessWidget {
                     Text('Don’t have an account?',
                         style: TextStyles.smallerTextRegular
                             .copyWith(color: ColorStyles.black)),
-                    Text('Sign Up',
-                        style: TextStyles.smallerTextRegular
-                            .copyWith(color: ColorStyles.secondary100)),
+                    GestureDetector(
+                      onTap: () => context.go('/sign_up'),
+                      child: Text(' Sign Up',
+                          style: TextStyles.smallerTextRegular
+                              .copyWith(color: ColorStyles.secondary100)),
+                    ),
                   ],
                 ),
               ],

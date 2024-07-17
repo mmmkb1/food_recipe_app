@@ -30,16 +30,20 @@ class _RecipeCardState extends State<RecipeCard> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(
-          widget.imageUrl,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: 200,
+        ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Image.network(
+            widget.imageUrl,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 200,
+          ),
         ),
         Container(
           width: double.infinity,
           height: 200,
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: [
                 Colors.black.withOpacity(0.0), // Brightest at the top
@@ -88,7 +92,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 ),
               ),
               Text(
-                'by ${widget.chef}',
+                widget.chef == '' ? '' : 'by ${widget.chef}',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,

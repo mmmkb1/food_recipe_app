@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
-import 'package:food_recipe_app/presentation/home/home_screen.dart';
-import 'package:food_recipe_app/presentation/sing_in/sign_in_screen.dart';
+import 'package:food_recipe_app/data/core/router.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
 void main() {
@@ -14,23 +12,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
         scaffoldBackgroundColor: ColorStyles.white, // 배경화면을 흰색으로 설정
       ),
-      home: HomeScreen(
-        recipeRepository: RecipeRepositoryImpl(),
-      ),
-      routes: {
-        '/home': (context) => HomeScreen(
-              recipeRepository: RecipeRepositoryImpl(),
-            ),
-        '/sign_in': (context) => const SignInScreen(),
-        // '/sign_up': (context) => SignUpScreen(),
-      },
+      routerConfig: router,
     );
   }
 }
