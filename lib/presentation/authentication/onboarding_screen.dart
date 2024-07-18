@@ -37,7 +37,7 @@ class OnboardingScreen extends StatelessWidget {
           SafeArea(
             child: SizedBox(
               width: double.infinity,
-              child: SingleChildScrollView(
+                        child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
