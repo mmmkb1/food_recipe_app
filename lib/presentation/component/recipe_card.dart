@@ -3,6 +3,7 @@ import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 
+@immutable
 class RecipeCard extends StatefulWidget {
   String imageUrl;
   String title;

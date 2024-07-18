@@ -52,12 +52,11 @@ class SavedRecipesView extends StatelessWidget {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                GestureDetector(
-                                  onTap: () => context.push(
-                                      '/saved_recipes/recipe_details',
-                                      extra: result.data[index]),
-                                  child: Hero(
-                                    tag: result.data[index].id!,
+                                Hero(
+                                  tag: result.data[index].id,
+                                  child: GestureDetector(
+                                    onTap: () => context.push('/recipe_details',
+                                        extra: result.data[index]),
                                     child: RecipeCard(
                                       imageUrl: result.data[index].imageUrl,
                                       title: result.data[index].title,

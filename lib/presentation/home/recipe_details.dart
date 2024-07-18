@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
+import 'package:food_recipe_app/presentation/component/recipe_card_ver2.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
@@ -41,15 +42,14 @@ class RecipeDetails extends StatelessWidget {
           child: Column(
             children: [
               Hero(
-                tag: recipe.id!,
+                tag: recipe.id,
                 child: RecipeCard(
-                  imageUrl: recipe.imageUrl,
-                  title: '',
-                  chef: '',
-                  cookTime: recipe.cookTime,
-                  rating: recipe.rating,
-                  isFavorite: recipe.isFavorite,
-                ),
+                    imageUrl: recipe.imageUrl,
+                    title: '',
+                    chef: '',
+                    rating: recipe.rating,
+                    cookTime: recipe.cookTime,
+                    isFavorite: recipe.isFavorite),
               ),
               const SizedBox(height: 10),
               Row(

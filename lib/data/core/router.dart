@@ -35,15 +35,13 @@ final GoRouter router = GoRouter(
               recipeRepository: RecipeRepositoryImpl(),
             );
           },
-          routes: <RouteBase>[
-            GoRoute(
-              path: 'recipe_details',
-              builder: (BuildContext context, GoRouterState state) {
-                final recipe = state.extra as Recipe;
-                return RecipeDetails(recipe: recipe);
-              },
-            ),
-          ],
+        ),
+        GoRoute(
+          path: 'recipe_details',
+          builder: (BuildContext context, GoRouterState state) {
+            final recipe = state.extra as Recipe;
+            return RecipeDetails(recipe: recipe);
+          },
         ),
       ],
     ),
