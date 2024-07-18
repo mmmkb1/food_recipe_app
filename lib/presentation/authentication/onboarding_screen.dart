@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
@@ -38,14 +37,14 @@ class OnboardingScreen extends StatelessWidget {
           SafeArea(
             child: SizedBox(
               width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 60,
-                  ),
-                  Container(
-                    child: Column(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    Column(
                       children: [
                         Image.asset(
                           'assets/images/food_recipe_icon.png',
@@ -62,46 +61,46 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 280,
-                  ),
-                  SizedBox(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Get\nCooking',
-                          textAlign: TextAlign.center,
-                          style: TextStyles.tittleTextBold.copyWith(
-                            color: ColorStyles.white,
-                            height: 1.1,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          'Simple way to find Tasty Recipe',
-                          style: TextStyles.normalTextRegular.copyWith(
-                            color: ColorStyles.white,
-                          ),
-                        ),
-                      ],
+                    const SizedBox(
+                      height: 280,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 64,
-                  ),
-                  SizedBox(
-                    width: 243,
-                    child: BigButton(
-                      label: 'Start Cooking',
-                      onPressed: () {
-                        context.go('/sign_in');
-                      },
+                    SizedBox(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Get\nCooking',
+                            textAlign: TextAlign.center,
+                            style: TextStyles.tittleTextBold.copyWith(
+                              color: ColorStyles.white,
+                              height: 1.1,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            'Simple way to find Tasty Recipe',
+                            style: TextStyles.normalTextRegular.copyWith(
+                              color: ColorStyles.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 64,
+                    ),
+                    SizedBox(
+                      width: 243,
+                      child: BigButton(
+                        label: 'Start Cooking',
+                        onPressed: () {
+                          context.go('/sign_in');
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/presentation/component/social_button.dart';
-import 'package:food_recipe_app/presentation/sing_in/sign_in_screen.dart';
 
 void main() {
   testWidgets('SignInScreen 컴포넌트 테스트', (WidgetTester tester) async {

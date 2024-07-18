@@ -11,7 +11,7 @@ void main() {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
-          body: InputField(label: label),
+          body: InputField(label: label, hint: '',),
         ),
       ),
     );
@@ -35,7 +35,7 @@ void main() {
             label: label,
             onChanged: () {
               callbackCalled = true;
-            },
+            }, hint: '',
           ),
         ),
       ),
@@ -60,7 +60,7 @@ void main() {
         home: Scaffold(
           body: InputField(
             label: label,
-            isPassword: true,
+            isPassword: true, hint: '',
           ),
         ),
       ),
