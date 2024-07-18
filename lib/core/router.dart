@@ -9,38 +9,41 @@ import 'package:food_recipe_app/presentation/home/recipe_details.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
+  initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(
       path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const OnboardingScreen();
+      pageBuilder: (BuildContext context, GoRouterState state) {
+        return const MaterialPage(child: OnboardingScreen());
       },
       routes: <RouteBase>[
         GoRoute(
           path: 'sign_in',
-          builder: (BuildContext context, GoRouterState state) {
-            return const SignInScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return const MaterialPage(child: SignInScreen());
           },
         ),
         GoRoute(
           path: 'sign_up',
-          builder: (BuildContext context, GoRouterState state) {
-            return const SignUpScreen();
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return const MaterialPage(child: SignUpScreen());
           },
         ),
         GoRoute(
           path: 'saved_recipes',
-          builder: (BuildContext context, GoRouterState state) {
-            return HomeScreen(
-              recipeRepository: RecipeRepositoryImpl(),
+          pageBuilder: (BuildContext context, GoRouterState state) {
+            return MaterialPage(
+              child: HomeScreen(
+                recipeRepository: RecipeRepositoryImpl(),
+              ),
             );
           },
         ),
         GoRoute(
           path: 'recipe_details',
-          builder: (BuildContext context, GoRouterState state) {
+          pageBuilder: (BuildContext context, GoRouterState state) {
             final recipe = state.extra as Recipe;
-            return RecipeDetails(recipe: recipe);
+            return MaterialPage(child: RecipeDetails(recipe: recipe));
           },
         ),
       ],

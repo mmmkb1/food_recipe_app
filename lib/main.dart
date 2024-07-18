@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/data/core/router.dart';
+import 'package:food_recipe_app/core/router.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
 void main() {

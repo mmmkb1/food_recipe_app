@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/data/repository/recipe_repository.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
+import 'package:food_recipe_app/presentation/home/home_view.dart';
 import 'package:food_recipe_app/presentation/home/saved_recipes_view.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
-      const SignInScreen(),
+      const HomeView(),
       SavedRecipesView(
         recipeRepository: widget._recipeRepository,
       ),
@@ -45,37 +46,37 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Container(
                 child: CustomIcons.bold('home',
-                    width: 24, height: 24, color: ColorStyles.gray4)),
+                    size: 24, color: ColorStyles.gray4)),
             label: 'Home',
             activeIcon: Container(
                 child: CustomIcons.bold('home',
-                    width: 24, height: 24, color: ColorStyles.primary100)),
+                    size: 24, color: ColorStyles.primary100)),
           ),
           BottomNavigationBarItem(
             icon: Container(
                 child: CustomIcons.outline('favorite',
-                    width: 24, height: 24, color: ColorStyles.gray4)),
+                    size: 24, color: ColorStyles.gray4)),
             activeIcon: Container(
                 child: CustomIcons.outline('favorite',
-                    width: 24, height: 24, color: ColorStyles.primary100)),
+                    size: 24, color: ColorStyles.primary100)),
             label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Container(
                 child: CustomIcons.outline('notification_bing',
-                    width: 24, height: 24, color: ColorStyles.gray4)),
+                    size: 24, color: ColorStyles.gray4)),
             activeIcon: Container(
                 child: CustomIcons.outline('notification_bing',
-                    width: 24, height: 24, color: ColorStyles.primary100)),
+                    size: 24, color: ColorStyles.primary100)),
             label: 'notification_bing',
           ),
           BottomNavigationBarItem(
             icon: Container(
                 child: CustomIcons.outline('profile',
-                    width: 24, height: 24, color: ColorStyles.gray4)),
+                    size: 24, color: ColorStyles.gray4)),
             activeIcon: Container(
                 child: CustomIcons.outline('profile',
-                    width: 24, height: 24, color: ColorStyles.primary100)),
+                    size: 24, color: ColorStyles.primary100)),
             label: 'Profile',
           ),
         ],

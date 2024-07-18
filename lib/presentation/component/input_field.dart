@@ -3,14 +3,14 @@ import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
 class InputField extends StatelessWidget {
-  final String label;
+  final String? label;
   final String hint;
   final bool isPassword;
   final void Function()? onChanged;
 
   const InputField(
       {super.key,
-      required this.label,
+      this.label,
       required this.hint,
       this.isPassword = false,
       this.onChanged});
@@ -20,10 +20,12 @@ class InputField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyles.smallTextRegular),
-        const SizedBox(
-          height: 5,
-        ),
+        if (label != null) ...[
+          Text(label!, style: TextStyles.smallTextRegular),
+          const SizedBox(
+            height: 5,
+          ),
+        ],
         TextField(
           onChanged: (value) {
             onChanged?.call();

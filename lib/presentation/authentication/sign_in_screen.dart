@@ -58,11 +58,14 @@ class SignInScreen extends StatelessWidget {
                 const SizedBox(height: 25),
                 SizedBox(
                   width: double.infinity,
-                  child: BigButton(
-                      label: 'Sign In',
-                      onPressed: () {
-                        context.go('/saved_recipes');
-                      }),
+                  child: Hero(
+                    tag: 'button',
+                    child: BigButton(
+                        label: 'Sign In',
+                        onPressed: () {
+                          context.go('/saved_recipes');
+                        }),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 const Row(

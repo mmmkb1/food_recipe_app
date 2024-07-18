@@ -94,11 +94,14 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     width: 243,
-                    child: BigButton(
-                      label: 'Start Cooking',
-                      onPressed: () {
-                        context.go('/sign_in');
-                      },
+                    child: Hero(
+                      tag: 'button',
+                      child: BigButton(
+                        label: 'Start Cooking',
+                        onPressed: () {
+                          context.go('/sign_in');
+                        },
+                      ),
                     ),
                   ),
                 ],

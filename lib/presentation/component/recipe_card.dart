@@ -109,7 +109,7 @@ class _RecipeCardState extends State<RecipeCard> {
             children: [
               Container(
                   child: CustomIcons.outline('timer',
-                      width: 17, height: 17, color: ColorStyles.gray4)),
+                      size: 17, color: ColorStyles.gray4)),
               const SizedBox(width: 8), // 4 픽셀 너비의 공간을 만듭니다.
               Text(
                 '${widget.cookTime} min',
