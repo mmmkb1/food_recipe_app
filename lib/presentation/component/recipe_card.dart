@@ -11,6 +11,7 @@ class RecipeCard extends StatefulWidget {
   double rating;
   int cookTime;
   bool isFavorite;
+  bool isSearch;
 
   RecipeCard({
     super.key,
@@ -20,6 +21,7 @@ class RecipeCard extends StatefulWidget {
     required this.rating,
     required this.cookTime,
     required this.isFavorite,
+    this.isSearch = false,
   });
 
   @override
@@ -102,55 +104,56 @@ class _RecipeCardState extends State<RecipeCard> {
             ],
           ),
         ),
-        Positioned(
-          bottom: 10,
-          right: 10,
-          child: Row(
-            children: [
-              Container(
-                  child: CustomIcons.outline('timer',
-                      size: 17, color: ColorStyles.gray4)),
-              const SizedBox(width: 8), // 4 픽셀 너비의 공간을 만듭니다.
-              Text(
-                '${widget.cookTime} min',
-                style: TextStyles.smallerTextRegular
-                    .copyWith(color: ColorStyles.gray4),
-              ),
-              const SizedBox(width: 10), // 4 픽셀 너비의 공간을 만듭니다.
-
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    widget.isFavorite = !widget.isFavorite;
-                  });
-                },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: widget.isFavorite
-                          ? CustomIcons.outline('favorite',
-                              color: ColorStyles.primary80)
-                          : CustomIcons.bold('favorite',
-                              color: ColorStyles.primary80)),
-
-                  // Icon(
-                  //   widget.isFavorite ? Icons.favorite : Icons.bookmark_outline,
-                  //   size: 20,
-                  //   color: widget.isFavorite
-                  //       ? Colors.red
-                  //       : const Color(0xFF82B1A4),
-                  // ),
+        if (widget.isSearch == true)
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: Row(
+              children: [
+                Container(
+                    child: CustomIcons.outline('timer',
+                        size: 17, color: ColorStyles.gray4)),
+                const SizedBox(width: 8), // 4 픽셀 너비의 공간을 만듭니다.
+                Text(
+                  '${widget.cookTime} min',
+                  style: TextStyles.smallerTextRegular
+                      .copyWith(color: ColorStyles.gray4),
                 ),
-              ),
-            ],
+                const SizedBox(width: 10), // 4 픽셀 너비의 공간을 만듭니다.
+
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      widget.isFavorite = !widget.isFavorite;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                    ),
+                    child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: widget.isFavorite
+                            ? CustomIcons.outline('favorite',
+                                color: ColorStyles.primary80)
+                            : CustomIcons.bold('favorite',
+                                color: ColorStyles.primary80)),
+
+                    // Icon(
+                    //   widget.isFavorite ? Icons.favorite : Icons.bookmark_outline,
+                    //   size: 20,
+                    //   color: widget.isFavorite
+                    //       ? Colors.red
+                    //       : const Color(0xFF82B1A4),
+                    // ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
       ],
     );
   }

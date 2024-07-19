@@ -7,13 +7,15 @@ class InputField extends StatelessWidget {
   final String hint;
   final bool isPassword;
   final void Function()? onChanged;
+  final void Function()? onTap;
 
   const InputField(
       {super.key,
       this.label,
       required this.hint,
       this.isPassword = false,
-      this.onChanged});
+      this.onChanged,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class InputField extends StatelessWidget {
           ),
         ],
         TextField(
+          onTap: onTap,
           onChanged: (value) {
             onChanged?.call();
           },
