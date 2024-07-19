@@ -7,7 +7,8 @@ import 'package:food_recipe_app/presentation/authentication/sign_up_screen.dart'
 import 'package:food_recipe_app/presentation/home/home_screen.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details.dart';
 import 'package:food_recipe_app/presentation/home/saved_recipes_view_model.dart';
-import 'package:food_recipe_app/presentation/search/search_recpies_screen.dart';
+import 'package:food_recipe_app/presentation/search/search_recipes_screen.dart';
+import 'package:food_recipe_app/presentation/search/search_recipes_screen_view_model.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
@@ -53,7 +54,11 @@ final GoRouter router = GoRouter(
         GoRoute(
             path: 'search',
             pageBuilder: (BuildContext context, GoRouterState state) {
-              return const MaterialPage(child: SearchRecipesScreen());
+              final repository = RecipeRepositoryImpl();
+              final viewModel = SearchRecipesScreenViewModel(repository);
+
+              return MaterialPage(
+                  child: SearchRecipesScreen(viewModel: viewModel));
             }),
       ],
     ),

@@ -51,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 InputField(
                   label: 'Name',
                   hint: 'Enter Name',
-                  onChanged: () {
+                  onChanged: (value) {
                     print('Email field changed');
                   },
                 ),

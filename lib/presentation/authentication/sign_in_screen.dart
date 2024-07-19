@@ -40,7 +40,7 @@ class SignInScreen extends StatelessWidget {
                 InputField(
                   label: 'Email',
                   hint: 'Enter Email',
-                  onChanged: () {
+                  onChanged: (value) {
                     print('Email field changed');
                   },
                 ),

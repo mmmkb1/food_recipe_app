@@ -6,7 +6,7 @@ class InputField extends StatelessWidget {
   final String? label;
   final String hint;
   final bool isPassword;
-  final void Function()? onChanged;
+  final void Function(String)? onChanged;
   final void Function()? onTap;
 
   const InputField(
@@ -31,7 +31,7 @@ class InputField extends StatelessWidget {
         TextField(
           onTap: onTap,
           onChanged: (value) {
-            onChanged?.call();
+            onChanged?.call(value);
           },
           obscureText: isPassword,
           decoration: InputDecoration(
