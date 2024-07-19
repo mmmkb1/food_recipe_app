@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: BigButton(
                       label: 'Sign In',
                       onPressed: () {
-                        context.go('/saved_recipes');
+                        context.go('/search');
                       }),
                 ),
                 const SizedBox(height: 14),
