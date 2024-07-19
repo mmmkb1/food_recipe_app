@@ -22,7 +22,7 @@ class SavedRecipesViewModel with ChangeNotifier {
     _fetchLoading = true;
     notifyListeners();
     //delay
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     final result = await _recipeRepository.getRecipes();
 

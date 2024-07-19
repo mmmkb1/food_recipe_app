@@ -52,12 +52,7 @@ class SavedRecipesView extends StatelessWidget {
                             child: Hero(
                               tag: 'recipe_${result[index].id}',
                               child: RecipeCard(
-                                imageUrl: result[index].imageUrl,
-                                title: result[index].title,
-                                chef: result[index].chef,
-                                rating: result[index].rating,
-                                cookTime: result[index].cookTime,
-                                isFavorite: result[index].isFavorite,
+                                recipe: result[index],
                               ),
                             ),
                           ),

@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 
 @immutable
 class RecipeCard extends StatefulWidget {
-  String imageUrl;
-  String title;
-  String chef;
-  double rating;
-  int cookTime;
-  bool isFavorite;
+  Recipe recipe;
   bool isSearch;
 
   RecipeCard({
     super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.chef,
-    required this.rating,
-    required this.cookTime,
-    required this.isFavorite,
+    required this.recipe,
     this.isSearch = false,
   });
 
@@ -36,7 +27,7 @@ class _RecipeCardState extends State<RecipeCard> {
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
-            widget.imageUrl,
+            widget.recipe.imageUrl,
             fit: BoxFit.cover,
             width: double.infinity,
             height: 200,
@@ -72,7 +63,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 const Icon(Icons.star, color: ColorStyles.rating),
                 const SizedBox(width: 4), // 4 픽셀 너비의 공간을 만듭니다.
                 Text(
-                  widget.rating.toString(),
+                  widget.recipe.rating.toString(),
                   style: const TextStyle(),
                 ),
               ],
@@ -87,7 +78,7 @@ class _RecipeCardState extends State<RecipeCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.title,
+                widget.recipe.title,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -95,7 +86,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 ),
               ),
               Text(
-                widget.chef == '' ? '' : 'by ${widget.chef}',
+                widget.recipe.chef == '' ? '' : 'by ${widget.recipe.chef}',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -104,7 +95,7 @@ class _RecipeCardState extends State<RecipeCard> {
             ],
           ),
         ),
-        if (widget.isSearch == true)
+        if (widget.isSearch == false)
           Positioned(
             bottom: 10,
             right: 10,
@@ -115,7 +106,7 @@ class _RecipeCardState extends State<RecipeCard> {
                         size: 17, color: ColorStyles.gray4)),
                 const SizedBox(width: 8), // 4 픽셀 너비의 공간을 만듭니다.
                 Text(
-                  '${widget.cookTime} min',
+                  '${widget.recipe.cookTime} min',
                   style: TextStyles.smallerTextRegular
                       .copyWith(color: ColorStyles.gray4),
                 ),
@@ -124,7 +115,8 @@ class _RecipeCardState extends State<RecipeCard> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      widget.isFavorite = !widget.isFavorite;
+                      widget.recipe = widget.recipe
+                          .copyWith(isFavorite: !widget.recipe.isFavorite);
                     });
                   },
                   child: Container(
@@ -136,7 +128,7 @@ class _RecipeCardState extends State<RecipeCard> {
                     child: SizedBox(
                         width: 20,
                         height: 20,
-                        child: widget.isFavorite
+                        child: widget.recipe.isFavorite
                             ? CustomIcons.outline('favorite',
                                 color: ColorStyles.primary80)
                             : CustomIcons.bold('favorite',

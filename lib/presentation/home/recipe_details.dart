@@ -43,12 +43,7 @@ class RecipeDetails extends StatelessWidget {
               Hero(
                 tag: 'recipe_${recipe.id}',
                 child: RecipeCard(
-                  imageUrl: recipe.imageUrl,
-                  title: recipe.title,
-                  chef: recipe.chef,
-                  rating: recipe.rating,
-                  cookTime: recipe.cookTime,
-                  isFavorite: recipe.isFavorite,
+                  recipe: recipe,
                 ),
               ),
               const SizedBox(height: 10),
