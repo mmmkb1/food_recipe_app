@@ -11,15 +11,11 @@ class SavedRecipesViewModel with ChangeNotifier {
   }
 
   List<Recipe> _recipes = [];
-
   List<Recipe> get recipes => List.unmodifiable(_recipes);
 
   final bool _isLoading = false;
-
   bool get isLoading => _isLoading;
-
   bool _fetchLoading = false;
-
   bool get fetchLoading => _fetchLoading;
 
   void fetchRecipes() async {

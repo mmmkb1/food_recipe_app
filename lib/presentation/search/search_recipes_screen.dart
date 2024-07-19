@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/component/input_field.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
+import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
@@ -8,12 +9,15 @@ import 'package:food_recipe_app/presentation/search/search_recipes_screen_view_m
 import 'package:go_router/go_router.dart';
 
 class SearchRecipesScreen extends StatelessWidget {
-  final SearchRecipesScreenViewModel viewModel;
-
-  const SearchRecipesScreen({super.key, required this.viewModel});
+  const SearchRecipesScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final viewModel =
+        ChangeNotifierProvider.of<SearchRecipesScreenViewModel>(context).value;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Search Recipes', style: TextStyles.mediumTextBold),

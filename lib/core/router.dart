@@ -9,6 +9,7 @@ import 'package:food_recipe_app/presentation/home/recipe_details.dart';
 import 'package:food_recipe_app/presentation/home/saved_recipes_view_model.dart';
 import 'package:food_recipe_app/presentation/search/search_recipes_screen.dart';
 import 'package:food_recipe_app/presentation/search/search_recipes_screen_view_model.dart';
+import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
@@ -33,13 +34,12 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(
-          path: 'saved_recipes',
+          path: 'home',
           pageBuilder: (BuildContext context, GoRouterState state) {
-            final repository = RecipeRepositoryImpl();
-            final viewModel = SavedRecipesViewModel(repository);
             return MaterialPage(
-              child: HomeScreen(
-                viewModel: viewModel,
+              child: ChangeNotifierProvider<SavedRecipesViewModel>(
+                value: SavedRecipesViewModel(RecipeRepositoryImpl()),
+                child: const HomeScreen(),
               ),
             );
           },
@@ -54,11 +54,12 @@ final GoRouter router = GoRouter(
         GoRoute(
             path: 'search',
             pageBuilder: (BuildContext context, GoRouterState state) {
-              final repository = RecipeRepositoryImpl();
-              final viewModel = SearchRecipesScreenViewModel(repository);
-
               return MaterialPage(
-                  child: SearchRecipesScreen(viewModel: viewModel));
+                child: ChangeNotifierProvider<SearchRecipesScreenViewModel>(
+                  value: SearchRecipesScreenViewModel(RecipeRepositoryImpl()),
+                  child: const SearchRecipesScreen(),
+                ),
+              );
             }),
       ],
     ),

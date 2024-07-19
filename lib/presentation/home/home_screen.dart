@@ -8,16 +8,14 @@ import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
 class HomeScreen extends StatefulWidget {
-  final SavedRecipesViewModel viewModel;
-
-  const HomeScreen({super.key, required this.viewModel});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,9 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     List<Widget> widgetOptions = <Widget>[
       const HomeView(),
-      SavedRecipesView(
-        viewModel: widget.viewModel,
-      ),
+      const SavedRecipesView(),
       const Text('Notification Page'),
       const Text('Profile Page'),
     ];

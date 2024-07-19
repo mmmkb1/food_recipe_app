@@ -63,7 +63,7 @@ class SignInScreen extends StatelessWidget {
                     child: BigButton(
                         label: 'Sign In',
                         onPressed: () {
-                          context.go('/search');
+                          context.go('/home');
                         }),
                   ),
                 ),
