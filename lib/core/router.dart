@@ -6,6 +6,7 @@ import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart'
 import 'package:food_recipe_app/presentation/authentication/sign_up_screen.dart';
 import 'package:food_recipe_app/presentation/home/home_screen.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view_model.dart';
 import 'package:go_router/go_router.dart';
 
 final GoRouter router = GoRouter(
@@ -32,9 +33,11 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: 'saved_recipes',
           pageBuilder: (BuildContext context, GoRouterState state) {
+            final repository = RecipeRepositoryImpl();
+            final viewModel = SavedRecipesViewModel(repository);
             return MaterialPage(
               child: HomeScreen(
-                recipeRepository: RecipeRepositoryImpl(),
+                viewModel: viewModel,
               ),
             );
           },

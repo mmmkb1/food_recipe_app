@@ -3,14 +3,14 @@ import 'package:food_recipe_app/data/repository/recipe_repository.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
 import 'package:food_recipe_app/presentation/home/home_view.dart';
 import 'package:food_recipe_app/presentation/home/saved_recipes_view.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view_model.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
 class HomeScreen extends StatefulWidget {
-  final RecipeRepository _recipeRepository;
+  final SavedRecipesViewModel viewModel;
 
-  const HomeScreen({super.key, required RecipeRepository recipeRepository})
-      : _recipeRepository = recipeRepository;
+  const HomeScreen({super.key, required this.viewModel});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> widgetOptions = <Widget>[
       const HomeView(),
       SavedRecipesView(
-        recipeRepository: widget._recipeRepository,
+        viewModel: widget.viewModel,
       ),
       const Text('Notification Page'),
       const Text('Profile Page'),
