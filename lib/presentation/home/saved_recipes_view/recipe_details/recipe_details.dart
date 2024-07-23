@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/data/model/ingredient.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
+import 'package:food_recipe_app/presentation/component/tap_bar.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
@@ -108,7 +110,8 @@ class RecipeDetails extends StatelessWidget {
                   )
                 ],
               ),
-              const Text('asdfasd'),
+              const SizedBox(height: 8),
+              const TapBar(),
             ],
           ),
         ),

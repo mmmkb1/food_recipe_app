@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/result.dart';
-import 'package:food_recipe_app/data/model/recipe.dart';
-import 'package:food_recipe_app/data/repository/recipe_repository.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes_view_model.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view/saved_recipes_view_model.dart';
 import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:go_router/go_router.dart';

@@ -5,10 +5,10 @@ import 'package:food_recipe_app/presentation/authentication/onboarding_screen.da
 import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_up_screen.dart';
 import 'package:food_recipe_app/presentation/home/home_screen.dart';
-import 'package:food_recipe_app/presentation/home/recipe_details.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes_view_model.dart';
-import 'package:food_recipe_app/presentation/search/search_recipes_screen.dart';
-import 'package:food_recipe_app/presentation/search/search_recipes_screen_view_model.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/recipe_details.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view/saved_recipes_view_model.dart';
+import 'package:food_recipe_app/presentation/home/home_view/search/search_recipes_screen.dart';
+import 'package:food_recipe_app/presentation/home/home_view/search/search_recipes_screen_view_model.dart';
 import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:go_router/go_router.dart';
 

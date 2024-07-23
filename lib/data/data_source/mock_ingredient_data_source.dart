@@ -1,7 +1,7 @@
 import 'package:food_recipe_app/data/data_source/ingredient_data_source.dart';
 import 'package:food_recipe_app/data/model/ingredient.dart';
 
-class MockingredientDataSource implements IngredientDataSource {
+class MockIngredientDataSource implements IngredientDataSource {
   final List<Ingredient> _ingredients = [
     const Ingredient(
       name: 'Tomatos',
