@@ -98,6 +98,7 @@ class OnboardingScreen extends StatelessWidget {
                       tag: 'button',
                       child: BigButton(
                         label: 'Start Cooking',
+                        hasArrow: true,
                         onPressed: () {
                           context.go('/sign_in');
                         },

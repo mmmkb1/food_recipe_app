@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
+import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
+import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
 class RecipeDetails extends StatelessWidget {
@@ -62,6 +64,51 @@ class RecipeDetails extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(
+                          'https://www.w3schools.com/w3images/avatar2.png',
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            recipe.chef,
+                            style: TextStyles.normalTextBold,
+                          ),
+                          Row(
+                            children: [
+                              CustomIcons.bold('location',
+                                  size: 17, color: ColorStyles.primary80),
+                              Text(
+                                'Cooking Expert',
+                                style: TextStyles.smallTextRegular.copyWith(
+                                  color: ColorStyles.gray3,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const BigButton(
+                    label: 'Follow',
+                    height: 40,
+                  )
+                ],
+              ),
+              const Text('asdfasd'),
             ],
           ),
         ),

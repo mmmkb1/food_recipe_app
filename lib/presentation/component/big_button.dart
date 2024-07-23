@@ -4,11 +4,15 @@ import 'package:food_recipe_app/ui/text_styles.dart';
 
 class BigButton extends StatefulWidget {
   final String label;
+  final double height;
+  final bool hasArrow;
   final void Function()? onPressed;
 
   const BigButton({
     super.key,
     required this.label,
+    this.height = 60,
+    this.hasArrow = false,
     this.onPressed,
   });
 
@@ -29,7 +33,8 @@ class _BigButtonState extends State<BigButton> {
         });
       },
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(vertical: 18),
+        fixedSize: Size(double.infinity, widget.height),
+        // padding: const EdgeInsets.symmetric(vertical: 18),
         backgroundColor: ColorStyles.primary100,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -42,14 +47,20 @@ class _BigButtonState extends State<BigButton> {
               style: TextStyles.normalTextBold.copyWith(
                 color: isPressed ? Colors.red : ColorStyles.white,
               )),
-          const SizedBox(
-            width: 20,
-          ),
-          const Icon(
-            Icons.arrow_forward,
-            color: ColorStyles.white,
-            size: 20,
-          )
+          widget.hasArrow
+              ? const Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Icon(
+                      Icons.arrow_forward,
+                      color: ColorStyles.white,
+                      size: 20,
+                    ),
+                  ],
+                )
+              : Container(),
         ],
       ),
     );

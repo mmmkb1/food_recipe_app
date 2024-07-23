@@ -114,6 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   width: double.infinity,
                   child: BigButton(
                       label: 'Sign In',
+                      hasArrow: true,
                       onPressed: () {
                         context.go('/search');
                       }),

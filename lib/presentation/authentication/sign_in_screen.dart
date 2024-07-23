@@ -62,6 +62,7 @@ class SignInScreen extends StatelessWidget {
                     tag: 'button',
                     child: BigButton(
                         label: 'Sign In',
+                        hasArrow: true,
                         onPressed: () {
                           context.go('/home');
                         }),
