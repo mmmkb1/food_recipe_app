@@ -4,6 +4,7 @@ import 'package:food_recipe_app/presentation/home/saved_recipes_view/saved_recip
 import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class SavedRecipesView extends StatelessWidget {
   const SavedRecipesView({
@@ -12,9 +13,7 @@ class SavedRecipesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel =
-        ChangeNotifierProvider.of<SavedRecipesViewModel>(context).value;
-
+    final model = context.watch<SavedRecipesViewModel>();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -26,40 +25,30 @@ class SavedRecipesView extends StatelessWidget {
               style: TextStyles.mediumTextBold,
             ),
             Expanded(
-              child: ListenableBuilder(
-                listenable: viewModel,
-                builder: (BuildContext context, Widget? child) {
-                  if (viewModel.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (viewModel.fetchLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  final result = viewModel.recipes;
-                  return ListView.builder(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    itemCount: result.length,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          const SizedBox(height: 10),
-                          GestureDetector(
-                            onTap: () => context.push('/recipe_details',
-                                extra: result[index]),
-                            child: Hero(
-                              tag: 'recipe_${result[index].id}',
-                              child: RecipeCard(
-                                recipe: result[index],
+              child: model.isLoading || model.fetchLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      itemCount: model.recipes.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () => context.push('/recipe_details',
+                                  extra: model.recipes[index]),
+                              child: Hero(
+                                tag: 'recipe_${model.recipes[index].id}',
+                                child: RecipeCard(
+                                  recipe: model.recipes[index],
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      );
-                    },
-                  );
-                },
-              ),
+                            const SizedBox(height: 10),
+                          ],
+                        );
+                      },
+                    ),
             ),
           ],
         ),

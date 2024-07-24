@@ -12,8 +12,8 @@ import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_deta
 import 'package:food_recipe_app/presentation/home/saved_recipes_view/saved_recipes_view_model.dart';
 import 'package:food_recipe_app/presentation/home/home_view/search/search_recipes_screen.dart';
 import 'package:food_recipe_app/presentation/home/home_view/search/search_recipes_screen_view_model.dart';
-import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
@@ -40,8 +40,9 @@ final GoRouter router = GoRouter(
           path: 'home',
           pageBuilder: (BuildContext context, GoRouterState state) {
             return MaterialPage(
-              child: ChangeNotifierProvider<SavedRecipesViewModel>(
-                value: SavedRecipesViewModel(RecipeRepositoryImpl()),
+              child: ChangeNotifierProvider(
+                create: (context) =>
+                    SavedRecipesViewModel(RecipeRepositoryImpl()),
                 child: const HomeScreen(),
               ),
             );
@@ -52,9 +53,11 @@ final GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) {
             final recipe = state.extra as Recipe;
             return MaterialPage(
-                child: ChangeNotifierProvider<RecipeDetailsViewModel>(
-                    value: RecipeDetailsViewModel(
-                        IngredientRepositoryImpl(), ProcedureRepositoryImpl()),
+                child: ChangeNotifierProvider(
+                    create: (context) => RecipeDetailsViewModel(
+                          IngredientRepositoryImpl(),
+                          ProcedureRepositoryImpl(),
+                        ),
                     child: RecipeDetailsView(recipe: recipe)));
           },
         ),
@@ -63,7 +66,9 @@ final GoRouter router = GoRouter(
             pageBuilder: (BuildContext context, GoRouterState state) {
               return MaterialPage(
                 child: ChangeNotifierProvider<SearchRecipesScreenViewModel>(
-                  value: SearchRecipesScreenViewModel(RecipeRepositoryImpl()),
+                  create: (context) => SearchRecipesScreenViewModel(
+                    RecipeRepositoryImpl(),
+                  ),
                   child: const SearchRecipesScreen(),
                 ),
               );
