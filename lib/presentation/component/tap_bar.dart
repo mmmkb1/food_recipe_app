@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 
 class TapBar extends StatefulWidget {
-  const TapBar({super.key});
+  // final void Function() onPressed; // 1. 콜백 함수 타입 정의
+  final viewModel;
+
+  const TapBar({
+    super.key,
+    this.viewModel,
+  }); // 2. 생성자에 콜백 함수 추가
 
   @override
   State<TapBar> createState() => _TapBarState();
@@ -27,6 +33,7 @@ class _TapBarState extends State<TapBar> {
                   width: 170,
                   isActivated: isPressed[0],
                   onPressed: () {
+                    widget.viewModel.changeTab(0); // 3. 콜백 함수 호출
                     setState(() {
                       isPressed[0] = true;
                       isPressed[1] = false;
@@ -40,6 +47,7 @@ class _TapBarState extends State<TapBar> {
                   width: 170,
                   isActivated: isPressed[1],
                   onPressed: () {
+                    widget.viewModel.changeTab(1); // 3. 콜백 함수 호출
                     setState(() {
                       isPressed[0] = false;
                       isPressed[1] = true;

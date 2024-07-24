@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/data/model/ingredient.dart';
+import 'package:food_recipe_app/data/model/procedure.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
 import 'package:food_recipe_app/presentation/component/tap_bar.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/ingredient_item.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/procedure_item.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/recipe_details_view_model.dart';
+import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 
-class RecipeDetails extends StatelessWidget {
+class RecipeDetailsView extends StatelessWidget {
   final Recipe recipe;
 
-  const RecipeDetails({super.key, required this.recipe});
+  const RecipeDetailsView({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel =
+        ChangeNotifierProvider.of<RecipeDetailsViewModel>(context).value;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -111,7 +119,45 @@ class RecipeDetails extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              const TapBar(),
+              TapBar(
+                viewModel: viewModel,
+              ),
+              ListenableBuilder(
+                listenable: viewModel,
+                builder: (BuildContext context, Widget? child) {
+                  if (viewModel.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (viewModel.fetchLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  List<dynamic> result = [];
+                  if (viewModel.currentTab == 0) {
+                    viewModel.fetchIngredients();
+                    result = viewModel.ingredient;
+                  } else if (viewModel.currentTab == 1) {
+                    viewModel.fetchProcedures();
+                    result = viewModel.procedure;
+                  }
+
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: result.length,
+                      itemBuilder: (context, index) {
+                        // Use IngredientItem for ingredients and ProcedureItem for procedures
+                        if (viewModel.currentTab == 0) {
+                          return IngredientItem(
+                              ingredient: viewModel.ingredient[index]);
+                        } else {
+                          return ProcedureItem(
+                              procedure: viewModel.procedure[index]);
+                        }
+                      },
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),
