@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
-import 'package:food_recipe_app/data/repository/ingredient_repository_impl.dart';
-import 'package:food_recipe_app/data/repository/procedure_repository_impl.dart';
-import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
+import 'package:food_recipe_app/data/repository/ingredient/ingredient_repository_impl.dart';
+import 'package:food_recipe_app/data/repository/procedure/procedure_repository_impl.dart';
+import 'package:food_recipe_app/data/repository/recipe/recipe_repository_impl.dart';
 import 'package:food_recipe_app/presentation/authentication/onboarding_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_up_screen.dart';

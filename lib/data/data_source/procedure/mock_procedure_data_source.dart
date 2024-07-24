@@ -1,4 +1,4 @@
-import 'package:food_recipe_app/data/data_source/procedure_data_source.dart';
+import 'package:food_recipe_app/data/data_source/procedure/procedure_data_source.dart';
 import 'package:food_recipe_app/data/model/procedure.dart';
 
 class MockProcedureDataSource implements ProcedureDataSource {

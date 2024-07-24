@@ -1,8 +1,8 @@
 import 'package:food_recipe_app/core/result.dart';
-import 'package:food_recipe_app/data/data_source/procedure_data_source.dart';
-import 'package:food_recipe_app/data/data_source/mock_procedure_data_source.dart';
+import 'package:food_recipe_app/data/data_source/procedure/procedure_data_source.dart';
+import 'package:food_recipe_app/data/data_source/procedure/mock_procedure_data_source.dart';
 import 'package:food_recipe_app/data/model/procedure.dart';
-import 'package:food_recipe_app/data/repository/procedure_repository.dart';
+import 'package:food_recipe_app/data/repository/procedure/procedure_repository.dart';
 
 class ProcedureRepositoryImpl implements ProcedureRepository {
   final ProcedureDataSource _procedureDataSource;

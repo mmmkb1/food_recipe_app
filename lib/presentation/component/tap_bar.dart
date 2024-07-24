@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 
 class TapBar extends StatefulWidget {
-  // final void Function() onPressed; // 1. 콜백 함수 타입 정의
-  final viewModel;
+  String firstTab;
+  String secondTab;
+  final Function(int) onTabSelected; // 1. Define a callback function type
 
-  const TapBar({
+  TapBar({
     super.key,
-    this.viewModel,
+    required this.firstTab,
+    required this.secondTab,
+    required this.onTabSelected, // 2. Add the callback function to the constructor
   }); // 2. 생성자에 콜백 함수 추가
 
   @override
@@ -28,12 +31,12 @@ class _TapBarState extends State<TapBar> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 BigButton(
-                  label: 'Ingredient',
+                  label: widget.firstTab,
                   height: 40,
                   width: 170,
                   isActivated: isPressed[0],
                   onPressed: () {
-                    widget.viewModel.changeTab(0); // 3. 콜백 함수 호출
+                    widget.onTabSelected(0);
                     setState(() {
                       isPressed[0] = true;
                       isPressed[1] = false;
@@ -42,12 +45,12 @@ class _TapBarState extends State<TapBar> {
                 ),
                 const SizedBox(width: 15),
                 BigButton(
-                  label: 'Procedure',
+                  label: widget.secondTab,
                   height: 40,
                   width: 170,
                   isActivated: isPressed[1],
                   onPressed: () {
-                    widget.viewModel.changeTab(1); // 3. 콜백 함수 호출
+                    widget.onTabSelected(1);
                     setState(() {
                       isPressed[0] = false;
                       isPressed[1] = true;

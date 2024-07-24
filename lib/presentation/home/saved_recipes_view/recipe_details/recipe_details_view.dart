@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/data/model/ingredient.dart';
-import 'package:food_recipe_app/data/model/procedure.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
@@ -120,7 +118,11 @@ class RecipeDetailsView extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               TapBar(
-                viewModel: viewModel,
+                firstTab: 'Ingredients',
+                secondTab: 'Procedures',
+                onTabSelected: (index) {
+                  viewModel.changeTab(index);
+                },
               ),
               ListenableBuilder(
                 listenable: viewModel,

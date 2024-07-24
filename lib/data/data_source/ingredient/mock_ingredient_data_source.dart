@@ -1,4 +1,4 @@
-import 'package:food_recipe_app/data/data_source/ingredient_data_source.dart';
+import 'package:food_recipe_app/data/data_source/ingredient/ingredient_data_source.dart';
 import 'package:food_recipe_app/data/model/ingredient.dart';
 
 class MockIngredientDataSource implements IngredientDataSource {
