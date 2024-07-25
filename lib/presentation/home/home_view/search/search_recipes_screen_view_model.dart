@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/data/repository/recipe/recipe_repository.dart';
+import 'package:food_recipe_app/presentation/home/home_view/search/search_ui_state.dart';
 
 class SearchRecipesScreenViewModel with ChangeNotifier {
   final RecipeRepository _recipeRepository;
@@ -10,16 +11,12 @@ class SearchRecipesScreenViewModel with ChangeNotifier {
     fetchRecipes();
   }
 
-  List<Recipe> _recipes = [];
-  List<Recipe> get recipes => List.unmodifiable(_recipes);
+  SearchUiState _state = const SearchUiState();
 
-  final bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  bool _fetchLoading = false;
-  bool get fetchLoading => _fetchLoading;
+  SearchUiState get state => _state;
 
   void fetchRecipes() async {
-    _fetchLoading = true;
+    _state = _state.copyWith(fetchLoading: true);
     notifyListeners();
     //delay
     await Future.delayed(const Duration(seconds: 1));
@@ -31,27 +28,29 @@ class SearchRecipesScreenViewModel with ChangeNotifier {
         print(result.e);
         break;
       case Success<List<Recipe>>():
-        _recipes = result.data;
+        _state = _state.copyWith(recipes: result.data);
         break;
     }
-    _fetchLoading = false;
+
+    _state = _state.copyWith(fetchLoading: false);
     notifyListeners();
   }
 
   void searchRecipes(String query) async {
-    _fetchLoading = true;
+    _state = _state.copyWith(isLoading: true);
     notifyListeners();
 
     if (query.isEmpty) {
       fetchRecipes();
     } else {
-      _recipes = _recipes
-          .where((recipe) =>
-              recipe.title.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      _state = _state.copyWith(
+          recipes: _state.recipes
+              .where((recipe) =>
+                  recipe.title.toLowerCase().contains(query.toLowerCase()))
+              .toList());
     }
 
-    _fetchLoading = false;
+    _state = _state.copyWith(isLoading: false);
     notifyListeners();
   }
 }

@@ -7,6 +7,7 @@ import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:food_recipe_app/presentation/home/home_view/search/search_recipes_screen_view_model.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class SearchRecipesScreen extends StatelessWidget {
   const SearchRecipesScreen({
@@ -15,9 +16,8 @@ class SearchRecipesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel =
-        ChangeNotifierProvider.of<SearchRecipesScreenViewModel>(context).value;
-
+    final model = context.watch<SearchRecipesScreenViewModel>();
+    final state = model.state;
     return Scaffold(
       appBar: AppBar(
         title: Text('Search Recipes', style: TextStyles.mediumTextBold),
@@ -53,7 +53,7 @@ class SearchRecipesScreen extends StatelessWidget {
                     hint: 'Search recipe',
                     onChanged: (value) {
                       print(value);
-                      viewModel.searchRecipes(value);
+                      model.searchRecipes(value);
                     },
                   ),
                 ),
@@ -73,16 +73,15 @@ class SearchRecipesScreen extends StatelessWidget {
               ],
             ),
             Text('Recent Search', style: TextStyles.normalTextBold),
-            ListenableBuilder(
-              listenable: viewModel,
-              builder: (BuildContext context, Widget? child) {
-                if (viewModel.isLoading) {
+            Builder(
+              builder: (context) {
+                if (state.isLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (viewModel.fetchLoading) {
+                if (state.fetchLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                final result = viewModel.recipes;
+                final result = state.recipes;
                 return Expanded(
                   child: GridView.builder(
                     gridDelegate:

@@ -3,9 +3,9 @@ import 'package:food_recipe_app/data/model/recipe.dart';
 import 'package:food_recipe_app/presentation/component/big_button.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
 import 'package:food_recipe_app/presentation/component/tap_bar.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/ingredient_item.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/procedure_item.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes_view/recipe_details/recipe_details_view_model.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/ingredient_item.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/procedure_item.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view_model.dart';
 import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
@@ -19,7 +19,8 @@ class RecipeDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<RecipeDetailsViewModel>();
+    final viewModel = context.watch<RecipeDetailsViewModel>();
+    final state = viewModel.state;
 
     return Scaffold(
       appBar: AppBar(
@@ -121,20 +122,20 @@ class RecipeDetailsView extends StatelessWidget {
                 firstTab: 'Ingredients',
                 secondTab: 'Procedures',
                 onTabSelected: (index) {
-                  model.changeTab(index);
+                  viewModel.changeTab(index);
                 },
               ),
               Builder(
                 builder: (context) {
-                  if (model.isLoading || model.fetchLoading) {
+                  if (state.isLoading || state.fetchLoading) {
                     return const Center(child: CircularProgressIndicator());
                   }
 
                   List<dynamic> result = [];
-                  if (model.currentTab == 0) {
-                    result = model.ingredient;
+                  if (state.currentTab == 0) {
+                    result = state.ingredient;
                   } else {
-                    result = model.procedure;
+                    result = state.procedure;
                   }
 
                   return Expanded(
@@ -142,12 +143,12 @@ class RecipeDetailsView extends StatelessWidget {
                       itemCount: result.length,
                       itemBuilder: (context, index) {
                         // Use IngredientItem for ingredients and ProcedureItem for procedures
-                        if (model.currentTab == 0) {
+                        if (state.currentTab == 0) {
                           return IngredientItem(
-                              ingredient: model.ingredient[index]);
+                              ingredient: state.ingredient[index]);
                         } else {
                           return ProcedureItem(
-                              procedure: model.procedure[index]);
+                              procedure: state.procedure[index]);
                         }
                       },
                     ),

@@ -4,6 +4,7 @@ import 'package:food_recipe_app/data/model/procedure.dart';
 import 'package:food_recipe_app/data/repository/ingredient/ingredient_repository.dart';
 import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/data/repository/procedure/procedure_repository.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/recipe_ui_state.dart';
 
 class RecipeDetailsViewModel with ChangeNotifier {
   final IngredientRepository _ingredientRepository;
@@ -14,22 +15,12 @@ class RecipeDetailsViewModel with ChangeNotifier {
     fetchIngredients();
   }
 
-  int _currentTab = 0;
-  int get currentTab => _currentTab;
+  RecipeUiState _state = const RecipeUiState();
 
-  List<Ingredient> _ingredient = [];
-  List<Ingredient> get ingredient => List.unmodifiable(_ingredient);
-
-  List<Procedure> _procedure = [];
-  List<Procedure> get procedure => List.unmodifiable(_procedure);
-
-  final bool _isLoading = false;
-  bool get isLoading => _isLoading;
-  bool _fetchLoading = false;
-  bool get fetchLoading => _fetchLoading;
+  RecipeUiState get state => _state;
 
   void fetchIngredients() async {
-    _fetchLoading = true;
+    _state = _state.copyWith(fetchLoading: true);
     notifyListeners();
     //delay
     await Future.delayed(const Duration(seconds: 1));
@@ -41,16 +32,15 @@ class RecipeDetailsViewModel with ChangeNotifier {
         print(result.e);
         break;
       case Success<List<Ingredient>>():
-        _ingredient = result.data;
+        _state = _state.copyWith(ingredient: result.data);
         break;
     }
-    _fetchLoading = false;
+    _state = _state.copyWith(fetchLoading: false);
     notifyListeners();
   }
 
   void fetchProcedures() async {
-    _fetchLoading =
-        true; // Assuming _fetchLoading is used for general loading state, not just for ingredients.
+    _state = _state.copyWith(fetchLoading: true);
     notifyListeners();
     // Assuming there's a delay or some asynchronous operation to fetch procedures.
     await Future.delayed(const Duration(seconds: 1));
@@ -63,11 +53,11 @@ class RecipeDetailsViewModel with ChangeNotifier {
         print(result.e); // Handle error case
         break;
       case Success<List<Procedure>>():
-        _procedure = result
-            .data; // Assuming there's a _procedure list to hold fetched procedures.
+        _state = _state.copyWith(procedure: result.data);
         break;
     }
-    _fetchLoading = false;
+
+    _state = _state.copyWith(fetchLoading: false);
     notifyListeners();
   }
 
@@ -78,7 +68,8 @@ class RecipeDetailsViewModel with ChangeNotifier {
     } else if (index == 1) {
       fetchProcedures();
     }
-    _currentTab = index;
+
+    _state = _state.copyWith(currentTab: index);
     notifyListeners();
   }
 }

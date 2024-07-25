@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/component/recipe_card.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes_view/saved_recipes_view_model.dart';
+import 'package:food_recipe_app/presentation/home/saved_recipes/saved_recipes_view_model.dart';
 import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +13,8 @@ class SavedRecipesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.watch<SavedRecipesViewModel>();
+    final viewModel = context.watch<SavedRecipesViewModel>();
+    final state = viewModel.state;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -25,22 +26,22 @@ class SavedRecipesView extends StatelessWidget {
               style: TextStyles.mediumTextBold,
             ),
             Expanded(
-              child: model.isLoading || model.fetchLoading
+              child: state.isLoading || state.fetchLoading
                   ? const Center(child: CircularProgressIndicator())
                   : ListView.builder(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      itemCount: model.recipes.length,
+                      itemCount: state.recipes.length,
                       itemBuilder: (context, index) {
                         return Column(
                           children: [
                             const SizedBox(height: 10),
                             GestureDetector(
                               onTap: () => context.push('/recipe_details',
-                                  extra: model.recipes[index]),
+                                  extra: state.recipes[index]),
                               child: Hero(
-                                tag: 'recipe_${model.recipes[index].id}',
+                                tag: 'recipe_${state.recipes[index].id}',
                                 child: RecipeCard(
-                                  recipe: model.recipes[index],
+                                  recipe: state.recipes[index],
                                 ),
                               ),
                             ),
