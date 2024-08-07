@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/data/model/recipe.dart';
-import 'package:food_recipe_app/data/repository/ingredient/ingredient_repository_impl.dart';
-import 'package:food_recipe_app/data/repository/procedure/procedure_repository_impl.dart';
-import 'package:food_recipe_app/data/repository/recipe/recipe_repository_impl.dart';
+import 'package:food_recipe_app/domain/model/recipe.dart';
+import 'package:food_recipe_app/data/repository/ingredient_repository_impl.dart';
+import 'package:food_recipe_app/data/repository/procedure_repository_impl.dart';
+import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
+import 'package:food_recipe_app/domain/use_case/get_recipes_use_case.dart';
+import 'package:food_recipe_app/domain/use_case/search_recipes_use_case.dart';
 import 'package:food_recipe_app/presentation/authentication/onboarding_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_up_screen.dart';
@@ -67,7 +69,8 @@ final GoRouter router = GoRouter(
               return MaterialPage(
                 child: ChangeNotifierProvider(
                   create: (context) => SearchRecipesScreenViewModel(
-                    RecipeRepositoryImpl(),
+                    GetRecipesUseCase(RecipeRepositoryImpl()),
+                    SearchRecipesUseCase(RecipeRepositoryImpl()),
                   ),
                   child: const SearchRecipesScreen(),
                 ),

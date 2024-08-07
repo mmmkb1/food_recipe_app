@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:food_recipe_app/presentation/component/input_field.dart';
+import 'package:food_recipe_app/presentation/components/input_field.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';

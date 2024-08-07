@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/result.dart';
-import 'package:food_recipe_app/data/model/recipe.dart';
-import 'package:food_recipe_app/data/repository/recipe/recipe_repository.dart';
+import 'package:food_recipe_app/domain/model/recipe.dart';
+import 'package:food_recipe_app/domain/use_case/get_recipes_use_case.dart';
+import 'package:food_recipe_app/domain/use_case/search_recipes_use_case.dart';
 import 'package:food_recipe_app/presentation/home/home_view/search/search_ui_state.dart';
 
 class SearchRecipesScreenViewModel with ChangeNotifier {
-  final RecipeRepository _recipeRepository;
+  final GetRecipesUseCase _getRecipesUseCase;
+  final SearchRecipesUseCase _searchRecipesUseCase;
 
-  SearchRecipesScreenViewModel(this._recipeRepository) {
+  SearchRecipesScreenViewModel(
+      this._getRecipesUseCase, this._searchRecipesUseCase) {
     fetchRecipes();
   }
 
@@ -21,18 +24,9 @@ class SearchRecipesScreenViewModel with ChangeNotifier {
     //delay
     await Future.delayed(const Duration(seconds: 1));
 
-    final result = await _recipeRepository.getRecipes();
+    final result = await _getRecipesUseCase.execute();
 
-    switch (result) {
-      case Error<List<Recipe>>():
-        print(result.e);
-        break;
-      case Success<List<Recipe>>():
-        _state = _state.copyWith(recipes: result.data);
-        break;
-    }
-
-    _state = _state.copyWith(fetchLoading: false);
+    _state = _state.copyWith(recipes: result, fetchLoading: false);
     notifyListeners();
   }
 
@@ -40,17 +34,8 @@ class SearchRecipesScreenViewModel with ChangeNotifier {
     _state = _state.copyWith(isLoading: true);
     notifyListeners();
 
-    if (query.isEmpty) {
-      fetchRecipes();
-    } else {
-      _state = _state.copyWith(
-          recipes: _state.recipes
-              .where((recipe) =>
-                  recipe.title.toLowerCase().contains(query.toLowerCase()))
-              .toList());
-    }
-
-    _state = _state.copyWith(isLoading: false);
+    final result = await _searchRecipesUseCase.execute(query);
+    _state = _state.copyWith(recipes: result, isLoading: false);
     notifyListeners();
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/data/model/recipe.dart';
-import 'package:food_recipe_app/presentation/component/big_button.dart';
-import 'package:food_recipe_app/presentation/component/recipe_card.dart';
-import 'package:food_recipe_app/presentation/component/tap_bar.dart';
-import 'package:food_recipe_app/presentation/home/recipe_details/ingredient_item.dart';
-import 'package:food_recipe_app/presentation/home/recipe_details/procedure_item.dart';
+import 'package:food_recipe_app/domain/model/recipe.dart';
+import 'package:food_recipe_app/presentation/components/big_button.dart';
+import 'package:food_recipe_app/presentation/components/recipe_card.dart';
+import 'package:food_recipe_app/presentation/components/tap_bar.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/components/ingredient_item.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/components/procedure_item.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view_model.dart';
 import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
