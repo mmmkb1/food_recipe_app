@@ -43,24 +43,22 @@ class OnboardingScreen extends StatelessWidget {
                   const SizedBox(
                     height: 60,
                   ),
-                  Container(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/food_recipe_icon.png',
+                  Column(
+                    children: [
+                      Image.asset(
+                        'assets/images/food_recipe_icon.png',
+                        color: ColorStyles.white,
+                      ),
+                      const SizedBox(
+                        height: 14,
+                      ),
+                      Text(
+                        '100K+ Premium Recipe ',
+                        style: TextStyles.mediumTextBold.copyWith(
                           color: ColorStyles.white,
                         ),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        Text(
-                          '100K+ Premium Recipe ',
-                          style: TextStyles.mediumTextBold.copyWith(
-                            color: ColorStyles.white,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 280,

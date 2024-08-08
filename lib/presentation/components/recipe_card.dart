@@ -4,12 +4,11 @@ import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 
-@immutable
 class RecipeCard extends StatefulWidget {
-  Recipe recipe;
-  bool isSearch;
+  final Recipe recipe;
+  final bool isSearch;
 
-  RecipeCard({
+  const RecipeCard({
     super.key,
     required this.recipe,
     this.isSearch = false,
@@ -20,6 +19,14 @@ class RecipeCard extends StatefulWidget {
 }
 
 class _RecipeCardState extends State<RecipeCard> {
+  late Recipe recipe;
+
+  @override
+  void initState() {
+    super.initState();
+    recipe = widget.recipe;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,7 +34,7 @@ class _RecipeCardState extends State<RecipeCard> {
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.network(
-            widget.recipe.imageUrl,
+            recipe.imageUrl,
             fit: BoxFit.cover,
             width: double.infinity,
             height: 200,
@@ -63,7 +70,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 const Icon(Icons.star, color: ColorStyles.rating),
                 const SizedBox(width: 4), // 4 픽셀 너비의 공간을 만듭니다.
                 Text(
-                  widget.recipe.rating.toString(),
+                  recipe.rating.toString(),
                   style: const TextStyle(),
                 ),
               ],
@@ -78,7 +85,7 @@ class _RecipeCardState extends State<RecipeCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.recipe.title,
+                recipe.title,
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -86,7 +93,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 ),
               ),
               Text(
-                widget.recipe.chef == '' ? '' : 'by ${widget.recipe.chef}',
+                recipe.chef == '' ? '' : 'by ${recipe.chef}',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,
@@ -106,7 +113,7 @@ class _RecipeCardState extends State<RecipeCard> {
                         size: 17, color: ColorStyles.gray4)),
                 const SizedBox(width: 8), // 4 픽셀 너비의 공간을 만듭니다.
                 Text(
-                  '${widget.recipe.cookTime} min',
+                  '${recipe.cookTime} min',
                   style: TextStyles.smallerTextRegular
                       .copyWith(color: ColorStyles.gray4),
                 ),
@@ -115,8 +122,7 @@ class _RecipeCardState extends State<RecipeCard> {
                 GestureDetector(
                   onTap: () {
                     setState(() {
-                      widget.recipe = widget.recipe
-                          .copyWith(isFavorite: !widget.recipe.isFavorite);
+                      recipe = recipe.copyWith(isFavorite: !recipe.isFavorite);
                     });
                   },
                   child: Container(
@@ -128,16 +134,16 @@ class _RecipeCardState extends State<RecipeCard> {
                     child: SizedBox(
                         width: 20,
                         height: 20,
-                        child: widget.recipe.isFavorite
+                        child: recipe.isFavorite
                             ? CustomIcons.outline('favorite',
                                 color: ColorStyles.primary80)
                             : CustomIcons.bold('favorite',
                                 color: ColorStyles.primary80)),
 
                     // Icon(
-                    //   widget.isFavorite ? Icons.favorite : Icons.bookmark_outline,
+                    //   recipe.isFavorite ? Icons.favorite : Icons.bookmark_outline,
                     //   size: 20,
-                    //   color: widget.isFavorite
+                    //   color: recipe.isFavorite
                     //       ? Colors.red
                     //       : const Color(0xFF82B1A4),
                     // ),

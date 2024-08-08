@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/di/di_setup.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
-import 'package:food_recipe_app/data/repository/ingredient_repository_impl.dart';
-import 'package:food_recipe_app/data/repository/procedure_repository_impl.dart';
-import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
-import 'package:food_recipe_app/domain/use_case/get_recipes_use_case.dart';
-import 'package:food_recipe_app/domain/use_case/search_recipes_use_case.dart';
 import 'package:food_recipe_app/presentation/authentication/onboarding_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_in_screen.dart';
 import 'package:food_recipe_app/presentation/authentication/sign_up_screen.dart';
 import 'package:food_recipe_app/presentation/home/home_screen.dart';
+import 'package:food_recipe_app/presentation/home/home_view/home_view_model.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view_model.dart';
 import 'package:food_recipe_app/presentation/home/saved_recipes/saved_recipes_view_model.dart';
@@ -43,8 +39,15 @@ final GoRouter router = GoRouter(
           path: 'home',
           pageBuilder: (BuildContext context, GoRouterState state) {
             return MaterialPage(
-              child: ChangeNotifierProvider(
-                create: (_) => getIt<SavedRecipesViewModel>(),
+              child: MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(
+                    create: (_) => getIt<HomeViewModel>(),
+                  ),
+                  ChangeNotifierProvider(
+                    create: (_) => getIt<SavedRecipesViewModel>(),
+                  ),
+                ],
                 child: const HomeScreen(),
               ),
             );

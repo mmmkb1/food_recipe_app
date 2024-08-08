@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:food_recipe_app/presentation/component/input_field.dart';
+import 'package:food_recipe_app/presentation/components/input_field.dart';
 
 void main() {
   testWidgets('InputField 올바른 출력 테스트', (WidgetTester tester) async {
@@ -11,7 +11,10 @@ void main() {
     await tester.pumpWidget(
       const MaterialApp(
         home: Scaffold(
-          body: InputField(label: label),
+          body: InputField(
+            label: 'Username',
+            hint: 'Username',
+          ),
         ),
       ),
     );
@@ -33,7 +36,8 @@ void main() {
         home: Scaffold(
           body: InputField(
             label: label,
-            onChanged: () {
+            hint: 'Username',
+            onChanged: (value) {
               callbackCalled = true;
             },
           ),
@@ -61,6 +65,7 @@ void main() {
           body: InputField(
             label: label,
             isPassword: true,
+            hint: 'Password',
           ),
         ),
       ),

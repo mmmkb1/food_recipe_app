@@ -51,7 +51,7 @@ class SearchRecipesScreen extends StatelessWidget {
                   child: InputField(
                     hint: 'Search recipe',
                     onChanged: (value) {
-                      print(value);
+                      debugPrint(value);
                       model.searchRecipes(value);
                     },
                   ),

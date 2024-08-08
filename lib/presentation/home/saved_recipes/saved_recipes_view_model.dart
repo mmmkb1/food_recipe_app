@@ -25,7 +25,7 @@ class SavedRecipesViewModel with ChangeNotifier {
 
     switch (result) {
       case Error<List<Recipe>>():
-        print(result.e);
+        debugPrint(result.e);
         break;
       case Success<List<Recipe>>():
         _state = _state.copyWith(recipes: result.data);

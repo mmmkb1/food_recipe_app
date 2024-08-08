@@ -29,7 +29,7 @@ class RecipeDetailsViewModel with ChangeNotifier {
 
     switch (result) {
       case Error<List<Ingredient>>():
-        print(result.e);
+        debugPrint(result.e);
         break;
       case Success<List<Ingredient>>():
         _state = _state.copyWith(ingredient: result.data);
@@ -50,7 +50,7 @@ class RecipeDetailsViewModel with ChangeNotifier {
 
     switch (result) {
       case Error<List<Procedure>>():
-        print(result.e); // Handle error case
+        debugPrint(result.e); // Handle error case
         break;
       case Success<List<Procedure>>():
         _state = _state.copyWith(procedure: result.data);

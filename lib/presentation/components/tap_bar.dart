@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/presentation/components/big_button.dart';
 
+@immutable
 class TapBar extends StatefulWidget {
-  String firstTab;
-  String secondTab;
+  final String firstTab;
+  final String secondTab;
   final Function(int) onTabSelected; // 1. Define a callback function type
 
-  TapBar({
+  const TapBar({
     super.key,
     required this.firstTab,
     required this.secondTab,

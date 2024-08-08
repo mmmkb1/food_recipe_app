@@ -1,4 +1,5 @@
 // search_recipes_use_case.dart
+import 'package:flutter/material.dart';
 import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/repository/recipe_repository.dart';
@@ -14,7 +15,7 @@ class SearchRecipesUseCase {
 
     switch (result) {
       case Error<List<Recipe>>():
-        print(result.e);
+        debugPrint(result.e);
         break;
       case Success<List<Recipe>>():
         if (query.isEmpty) {

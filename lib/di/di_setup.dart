@@ -7,12 +7,12 @@ import 'package:food_recipe_app/data/data_source/recipe_data_source.dart';
 import 'package:food_recipe_app/data/repository/ingredient_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/procedure_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/recipe_repository_impl.dart';
-import 'package:food_recipe_app/domain/model/ingredient.dart';
 import 'package:food_recipe_app/domain/repository/ingredient_repository.dart';
 import 'package:food_recipe_app/domain/repository/procedure_repository.dart';
 import 'package:food_recipe_app/domain/repository/recipe_repository.dart';
 import 'package:food_recipe_app/domain/use_case/get_recipes_use_case.dart';
 import 'package:food_recipe_app/domain/use_case/search_recipes_use_case.dart';
+import 'package:food_recipe_app/presentation/home/home_view/home_view_model.dart';
 import 'package:food_recipe_app/presentation/home/home_view/search/search_recipes_screen_view_model.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view_model.dart';
 import 'package:food_recipe_app/presentation/home/saved_recipes/saved_recipes_view_model.dart';
@@ -44,4 +44,6 @@ void diSetup() {
             getIt(),
             getIt(),
           ));
+
+  getIt.registerFactory<HomeViewModel>(() => HomeViewModel());
 }

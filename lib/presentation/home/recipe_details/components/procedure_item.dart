@@ -21,11 +21,9 @@ class ProcedureItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            child: Text(
-              procedure.step,
-              style: TextStyles.smallerTextBold,
-            ),
+          Text(
+            procedure.step,
+            style: TextStyles.smallerTextBold,
           ),
           Text(
             procedure.description,

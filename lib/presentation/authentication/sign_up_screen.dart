@@ -52,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   label: 'Name',
                   hint: 'Enter Name',
                   onChanged: (value) {
-                    print('Email field changed');
+                    debugPrint('Email field changed');
                   },
                 ),
                 const SizedBox(

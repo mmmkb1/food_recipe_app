@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/presentation/components/big_button.dart';
 import 'package:food_recipe_app/presentation/components/input_field.dart';
+import 'package:food_recipe_app/presentation/home/home_view/components/recipe_category_picker.dart';
+import 'package:food_recipe_app/presentation/home/home_view/home_view_model.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<HomeViewModel>();
+
     return Padding(
       padding: const EdgeInsets.all(30.0),
       child: Scaffold(
@@ -68,6 +74,25 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            RecipeCategoryPicker(
+              onSelected: (category) => viewModel.onSelectCategory(category),
+            ),
+            StreamBuilder<String>(
+              stream: viewModel.categorySelectionStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Selected category: ${snapshot.data}'),
+                        duration: const Duration(seconds: 1),
+                      ),
+                    );
+                  });
+                }
+                return const SizedBox.shrink();
+              },
             ),
           ],
         ),

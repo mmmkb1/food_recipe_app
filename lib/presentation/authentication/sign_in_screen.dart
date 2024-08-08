@@ -41,7 +41,7 @@ class SignInScreen extends StatelessWidget {
                   label: 'Email',
                   hint: 'Enter Email',
                   onChanged: (value) {
-                    print('Email field changed');
+                    debugPrint('Email field changed');
                   },
                 ),
                 const SizedBox(
