@@ -6,7 +6,6 @@ import 'package:food_recipe_app/presentation/components/tap_bar.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/components/ingredient_item.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/components/procedure_item.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view_model.dart';
-import 'package:food_recipe_app/provider/change_notifier_provider.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';

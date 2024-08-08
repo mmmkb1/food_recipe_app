@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/core/result.dart';
-import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/domain/use_case/get_recipes_use_case.dart';
 import 'package:food_recipe_app/domain/use_case/search_recipes_use_case.dart';
 import 'package:food_recipe_app/presentation/home/home_view/search/search_ui_state.dart';

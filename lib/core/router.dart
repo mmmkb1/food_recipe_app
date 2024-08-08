@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/di/di_setup.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/data/repository/ingredient_repository_impl.dart';
 import 'package:food_recipe_app/data/repository/procedure_repository_impl.dart';
@@ -43,8 +44,7 @@ final GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) {
             return MaterialPage(
               child: ChangeNotifierProvider(
-                create: (context) =>
-                    SavedRecipesViewModel(RecipeRepositoryImpl()),
+                create: (_) => getIt<SavedRecipesViewModel>(),
                 child: const HomeScreen(),
               ),
             );
@@ -56,10 +56,7 @@ final GoRouter router = GoRouter(
             final recipe = state.extra as Recipe;
             return MaterialPage(
                 child: ChangeNotifierProvider(
-                    create: (context) => RecipeDetailsViewModel(
-                          IngredientRepositoryImpl(),
-                          ProcedureRepositoryImpl(),
-                        ),
+                    create: (_) => getIt<RecipeDetailsViewModel>(),
                     child: RecipeDetailsView(recipe: recipe)));
           },
         ),
@@ -68,10 +65,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (BuildContext context, GoRouterState state) {
               return MaterialPage(
                 child: ChangeNotifierProvider(
-                  create: (context) => SearchRecipesScreenViewModel(
-                    GetRecipesUseCase(RecipeRepositoryImpl()),
-                    SearchRecipesUseCase(RecipeRepositoryImpl()),
-                  ),
+                  create: (_) => getIt<SearchRecipesScreenViewModel>(),
                   child: const SearchRecipesScreen(),
                 ),
               );
