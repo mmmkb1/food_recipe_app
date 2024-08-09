@@ -8,8 +8,10 @@ import 'package:food_recipe_app/core/result.dart';
 class HomeViewModel with ChangeNotifier {
   final RecipeRepository _recipeRepository;
   String categoryState = 'All';
+
   final _selectedCategoryController = StreamController<String>.broadcast();
   final _recipesController = StreamController<List<Recipe>>.broadcast();
+  List<Recipe> _initialRecipes = [];
 
   HomeViewModel(this._recipeRepository) {
     fetchRecipes();
@@ -17,8 +19,9 @@ class HomeViewModel with ChangeNotifier {
 
   Stream<String> get categorySelectionStream =>
       _selectedCategoryController.stream;
-
   Stream<List<Recipe>> get recipesStream => _recipesController.stream;
+
+  List<Recipe> get initialRecipes => _initialRecipes;
 
   void onSelectCategory(String category) {
     categoryState = category;
@@ -47,6 +50,7 @@ class HomeViewModel with ChangeNotifier {
         break;
       case Success<List<Recipe>>():
         final recipes = result.data;
+        _initialRecipes = recipes;
         _recipesController.add(recipes);
         break;
     }
@@ -63,7 +67,6 @@ class HomeViewModel with ChangeNotifier {
       case Success<List<Recipe>>():
         final recipes = result.data;
         _recipesController.add(recipes);
-        // print(recipes);
         break;
     }
   }

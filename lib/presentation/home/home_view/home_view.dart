@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/components/input_field.dart';
@@ -10,8 +12,33 @@ import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  StreamSubscription<String>? _categorySubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    final viewModel = context.read<HomeViewModel>();
+    _categorySubscription =
+        viewModel.categorySelectionStream.listen((category) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Selected category: $category'),
+            duration: const Duration(seconds: 1),
+          ),
+        );
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,24 +106,8 @@ class HomeView extends StatelessWidget {
             RecipeCategoryPicker(
               onSelected: (category) => viewModel.onSelectCategory(category),
             ),
-            StreamBuilder<String>(
-              stream: viewModel.categorySelectionStream,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Selected category: ${snapshot.data}'),
-                        duration: const Duration(seconds: 1),
-                      ),
-                    );
-                  });
-                }
-                return const SizedBox.shrink();
-              },
-            ),
             StreamBuilder<List<Recipe>>(
+              initialData: viewModel.initialRecipes,
               stream: viewModel.recipesStream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
@@ -125,7 +136,7 @@ class HomeView extends StatelessWidget {
                   return const CircularProgressIndicator();
                 }
               },
-            )
+            ),
           ],
         ),
       ),

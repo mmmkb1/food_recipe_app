@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/domain/model/ingredient.dart';
 import 'package:food_recipe_app/domain/model/procedure.dart';
 import 'package:food_recipe_app/domain/repository/ingredient_repository.dart';
 import 'package:food_recipe_app/core/result.dart';
 import 'package:food_recipe_app/domain/repository/procedure_repository.dart';
+import 'package:food_recipe_app/domain/use_case/copy_link_use_case.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_ui_state.dart';
 
 class RecipeDetailsViewModel with ChangeNotifier {
+  final _snackBarController = StreamController<bool>.broadcast();
   final IngredientRepository _ingredientRepository;
   final ProcedureRepository _procedureRepository;
 
@@ -15,8 +19,8 @@ class RecipeDetailsViewModel with ChangeNotifier {
     fetchIngredients();
   }
 
+  Stream<bool> get snackBarStream => _snackBarController.stream;
   RecipeUiState _state = const RecipeUiState();
-
   RecipeUiState get state => _state;
 
   void fetchIngredients() async {
@@ -71,5 +75,10 @@ class RecipeDetailsViewModel with ChangeNotifier {
 
     _state = _state.copyWith(currentTab: index);
     notifyListeners();
+  }
+
+  void copyLink(String recipeLink) {
+    _snackBarController.add(true);
+    CopyLinkUseCase().execute(recipeLink);
   }
 }

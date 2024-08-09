@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/components/big_button.dart';
@@ -5,16 +7,47 @@ import 'package:food_recipe_app/presentation/components/recipe_card.dart';
 import 'package:food_recipe_app/presentation/components/tap_bar.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/components/ingredient_item.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/components/procedure_item.dart';
+import 'package:food_recipe_app/presentation/home/recipe_details/components/recipe_link_dialog.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_details_view_model.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 import 'package:food_recipe_app/ui/icons.dart';
 import 'package:food_recipe_app/ui/text_styles.dart';
 import 'package:provider/provider.dart';
 
-class RecipeDetailsView extends StatelessWidget {
+class RecipeDetailsView extends StatefulWidget {
   final Recipe recipe;
 
   const RecipeDetailsView({super.key, required this.recipe});
+
+  @override
+  State<RecipeDetailsView> createState() => _RecipeDetailsViewState();
+}
+
+class _RecipeDetailsViewState extends State<RecipeDetailsView> {
+  StreamSubscription<bool>? _snackBarSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    final viewModel = context.read<RecipeDetailsViewModel>();
+    _snackBarSubscription = viewModel.snackBarStream.listen((isCopied) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            width: 200,
+            backgroundColor: ColorStyles.white,
+            content: Text(
+              isCopied ? 'Link copied!' : 'Failed to copy link',
+              style: const TextStyle(color: ColorStyles.black),
+            ),
+            duration: const Duration(seconds: 1),
+          ),
+        );
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +66,43 @@ class RecipeDetailsView extends StatelessWidget {
           PopupMenuButton(
             itemBuilder: (BuildContext context) {
               return [
-                const PopupMenuItem(
-                  child: Text('1'),
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(Icons.share),
+                    title: const Text('Share'),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return RecipeLinkDialog(
+                            recipeLink: 'https://google.com',
+                            onTap: (link) {
+                              Navigator.of(context).pop();
+                              viewModel.copyLink(link);
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
                 const PopupMenuItem(
-                  child: Text('2'),
+                  child: ListTile(
+                    leading: Icon(Icons.star_rate),
+                    title: Text('Rate Recipe'),
+                  ),
+                ),
+                const PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.comment),
+                    title: Text('Review'),
+                  ),
+                ),
+                const PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(Icons.bookmark_remove),
+                    title: Text('Unsave'),
+                  ),
                 ),
               ];
             },
@@ -51,16 +116,16 @@ class RecipeDetailsView extends StatelessWidget {
           child: Column(
             children: [
               Hero(
-                tag: 'recipe_${recipe.id}',
+                tag: 'recipe_${widget.recipe.id}',
                 child: RecipeCard(
-                  recipe: recipe,
+                  recipe: widget.recipe,
                 ),
               ),
               const SizedBox(height: 10),
               Row(
                 children: [
                   Text(
-                    recipe.title,
+                    widget.recipe.title,
                     style: TextStyles.smallTextBold,
                   ),
                   const Spacer(),
@@ -91,7 +156,7 @@ class RecipeDetailsView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            recipe.chef,
+                            widget.recipe.chef,
                             style: TextStyles.normalTextBold,
                           ),
                           Row(
