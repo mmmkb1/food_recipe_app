@@ -84,6 +84,7 @@ class HomeView extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
+                    ScaffoldMessenger.of(context).removeCurrentSnackBar();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Selected category: ${snapshot.data}'),
