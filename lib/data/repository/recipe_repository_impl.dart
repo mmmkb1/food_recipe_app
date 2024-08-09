@@ -19,4 +19,16 @@ class RecipeRepositoryImpl implements RecipeRepository {
       return Result.error(e.toString());
     }
   }
+
+  @override
+  Future<Result<List<Recipe>>> getRecipesByCategory(String category) async {
+    try {
+      return Result.success(
+        await _recipeDataSource.getRecipes().then(
+            (value) => value.where((e) => e.category == category).toList()),
+      );
+    } catch (e) {
+      return Result.error(e.toString());
+    }
+  }
 }

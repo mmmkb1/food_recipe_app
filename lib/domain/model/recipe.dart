@@ -13,6 +13,7 @@ class Recipe with _$Recipe {
     required String chef,
     required double rating,
     required int cookTime,
+    required String category,
     required bool isFavorite,
   }) = _Recipe;
 

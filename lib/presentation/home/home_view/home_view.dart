@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_recipe_app/presentation/components/big_button.dart';
+import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/components/input_field.dart';
+import 'package:food_recipe_app/presentation/components/recipe_card.dart';
 import 'package:food_recipe_app/presentation/home/home_view/components/recipe_category_picker.dart';
 import 'package:food_recipe_app/presentation/home/home_view/home_view_model.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
@@ -94,6 +95,36 @@ class HomeView extends StatelessWidget {
                 return const SizedBox.shrink();
               },
             ),
+            StreamBuilder<List<Recipe>>(
+              stream: viewModel.recipesStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final recipes = snapshot.data!;
+                  // print(recipes);
+                  return SizedBox(
+                    height:
+                        200.0, // Set a specific height for the horizontal ListView
+                    child: ListView.builder(
+                      key: ValueKey(viewModel.categoryState),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: recipes.length,
+                      itemBuilder: (context, index) {
+                        final recipe = recipes[index];
+                        return SizedBox(
+                          width:
+                              150.0, // Set a specific width for each RecipeCard
+                          child: RecipeCard(recipe: recipe),
+                        );
+                      },
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return const CircularProgressIndicator();
+                }
+              },
+            )
           ],
         ),
       ),

@@ -45,5 +45,5 @@ void diSetup() {
             getIt(),
           ));
 
-  getIt.registerFactory<HomeViewModel>(() => HomeViewModel());
+  getIt.registerFactory<HomeViewModel>(() => HomeViewModel(getIt()));
 }
