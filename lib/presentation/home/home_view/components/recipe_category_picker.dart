@@ -18,10 +18,19 @@ class _RecipeCategoryPickerState extends State<RecipeCategoryPicker> {
     'Chinese': false,
   };
 
+  final List<String> _categories = [
+    'All',
+    'Indian',
+    'Italian',
+    'Asian',
+    'Chinese'
+  ];
+
   void _handleButtonPress(String label) {
     setState(() {
       _isActivated.updateAll((key, value) => key == label);
     });
+    widget.onSelected!(label);
   }
 
   @override
@@ -31,44 +40,13 @@ class _RecipeCategoryPickerState extends State<RecipeCategoryPicker> {
       child: ListView(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(vertical: 10.0),
-        children: <Widget>[
-          BigButton(
-            label: 'All',
-            isActivated: _isActivated['All']!,
-            onPressed: () => {
-              _handleButtonPress('All'),
-              widget.onSelected!('All'),
-            },
-          ),
-          BigButton(
-              label: 'Indian',
-              isActivated: _isActivated['Indian']!,
-              onPressed: () => {
-                    _handleButtonPress('Indian'),
-                    widget.onSelected!('Indian'),
-                  }),
-          BigButton(
-              label: 'Italian',
-              isActivated: _isActivated['Italian']!,
-              onPressed: () => {
-                    _handleButtonPress('Italian'),
-                    widget.onSelected!('Italian'),
-                  }),
-          BigButton(
-              label: 'Asian',
-              isActivated: _isActivated['Asian']!,
-              onPressed: () => {
-                    _handleButtonPress('Asian'),
-                    widget.onSelected!('Asian'),
-                  }),
-          BigButton(
-              label: 'Chinese',
-              isActivated: _isActivated['Chinese']!,
-              onPressed: () => {
-                    _handleButtonPress('Chinese'),
-                    widget.onSelected!('Chinese'),
-                  }),
-        ],
+        children: _categories.map((category) {
+          return BigButton(
+            label: category,
+            isActivated: _isActivated[category]!,
+            onPressed: () => _handleButtonPress(category),
+          );
+        }).toList(),
       ),
     );
   }
