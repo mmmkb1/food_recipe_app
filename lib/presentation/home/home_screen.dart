@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
             activeIcon: Container(
                 child: CustomIcons.outline('favorite',
                     size: 24, color: ColorStyles.primary100)),
-            label: 'Search',
+            label: 'Saved',
           ),
           BottomNavigationBarItem(
             icon: Container(
