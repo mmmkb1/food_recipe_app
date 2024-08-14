@@ -41,6 +41,12 @@ class _HomeViewState extends State<HomeView> {
   }
 
   @override
+  void dispose() {
+    _categorySubscription?.cancel(); // Cancel the subscription
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
 

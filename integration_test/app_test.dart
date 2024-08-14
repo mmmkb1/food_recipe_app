@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_recipe_app/presentation/components/recipe_card.dart';
-import 'package:food_recipe_app/presentation/home/saved_recipes/saved_recipes_view.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:food_recipe_app/main.dart' as app;
 

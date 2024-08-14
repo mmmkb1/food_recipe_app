@@ -50,6 +50,12 @@ class _RecipeDetailsViewState extends State<RecipeDetailsView> {
   }
 
   @override
+  void dispose() {
+    _snackBarSubscription?.cancel(); // Cancel the subscription
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<RecipeDetailsViewModel>();
     final state = viewModel.state;
