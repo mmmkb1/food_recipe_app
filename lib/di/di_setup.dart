@@ -1,3 +1,4 @@
+import 'package:food_recipe_app/config/environment.dart';
 import 'package:food_recipe_app/data/data_source/ingredient_data_source.dart';
 import 'package:food_recipe_app/data/data_source/mock/mock_ingredient_data_source.dart';
 import 'package:food_recipe_app/data/data_source/mock/mock_procedure_data_source.dart';
@@ -20,7 +21,13 @@ import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
 
-void diSetup() {
+void diSetup(String environment) {
+  if (environment == 'dev') {
+    getIt.registerSingleton<Environment>(DevEnvironment());
+  } else if (environment == 'prod') {
+    getIt.registerSingleton<Environment>(ProdEnvironment());
+  }
+
   getIt.registerSingleton<RecipeDataSource>(MockRecipeDataSource());
   getIt.registerSingleton<RecipeRepository>(
       RecipeRepositoryImpl(recipeDataSource: getIt()));

@@ -10,7 +10,7 @@ import 'package:food_recipe_app/domain/use_case/copy_link_use_case.dart';
 import 'package:food_recipe_app/presentation/home/recipe_details/recipe_ui_state.dart';
 
 class RecipeDetailsViewModel with ChangeNotifier {
-  final _snackBarController = StreamController<bool>.broadcast();
+  final _snackBarController = StreamController<bool>();
   final IngredientRepository _ingredientRepository;
   final ProcedureRepository _procedureRepository;
 

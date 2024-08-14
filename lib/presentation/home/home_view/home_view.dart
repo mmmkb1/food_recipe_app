@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:food_recipe_app/config/environment.dart';
+import 'package:food_recipe_app/di/di_setup.dart';
 import 'package:food_recipe_app/domain/model/recipe.dart';
 import 'package:food_recipe_app/presentation/components/input_field.dart';
 import 'package:food_recipe_app/presentation/components/recipe_card.dart';
@@ -28,15 +30,13 @@ class _HomeViewState extends State<HomeView> {
     final viewModel = context.read<HomeViewModel>();
     _categorySubscription =
         viewModel.categorySelectionStream.listen((category) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Selected category: $category'),
-            duration: const Duration(seconds: 1),
-          ),
-        );
-      });
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Selected category: $category'),
+          duration: const Duration(seconds: 1),
+        ),
+      );
     });
   }
 
@@ -49,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final viewModel = context.watch<HomeViewModel>();
+    final environment = getIt<Environment>();
 
     return Padding(
       padding: const EdgeInsets.all(30.0),
@@ -61,7 +62,8 @@ class _HomeViewState extends State<HomeView> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Hello Jega', style: TextStyles.largeTextBold),
+                    Text(environment.welcomeMessage,
+                        style: TextStyles.largeTextBold),
                     Text(
                       'What are you cooking today?',
                       style: TextStyles.normalTextRegular.copyWith(

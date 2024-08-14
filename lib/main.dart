@@ -4,7 +4,7 @@ import 'package:food_recipe_app/di/di_setup.dart';
 import 'package:food_recipe_app/ui/color_styles.dart';
 
 void main() {
-  diSetup();
+  diSetup('prod');
   runApp(const MyApp());
 }
 

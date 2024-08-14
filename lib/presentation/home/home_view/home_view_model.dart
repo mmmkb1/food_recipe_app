@@ -7,15 +7,19 @@ import 'package:food_recipe_app/core/result.dart';
 
 class HomeViewModel with ChangeNotifier {
   final RecipeRepository _recipeRepository;
-  String categoryState = 'All';
+  String _categoryState = 'All';
 
-  final _selectedCategoryController = StreamController<String>.broadcast();
-  final _recipesController = StreamController<List<Recipe>>.broadcast();
+  final StreamController<String> _selectedCategoryController;
+  final StreamController<List<Recipe>> _recipesController;
   List<Recipe> _initialRecipes = [];
 
-  HomeViewModel(this._recipeRepository) {
-    fetchRecipes();
+  HomeViewModel(this._recipeRepository)
+      : _selectedCategoryController = StreamController<String>.broadcast(),
+        _recipesController = StreamController<List<Recipe>>.broadcast() {
+    _fetchRecipes();
   }
+
+  String get categoryState => _categoryState;
 
   Stream<String> get categorySelectionStream =>
       _selectedCategoryController.stream;
@@ -24,41 +28,33 @@ class HomeViewModel with ChangeNotifier {
   List<Recipe> get initialRecipes => _initialRecipes;
 
   void onSelectCategory(String category) {
-    categoryState = category;
+    _categoryState = category;
     _selectedCategoryController.add(category);
     if (category == 'All') {
-      fetchRecipes();
+      _fetchRecipes();
     } else {
-      getRecipesByCategory(category);
+      _fetchRecipesByCategory(category);
     }
   }
 
   @override
   void dispose() {
-    super.dispose();
     _selectedCategoryController.close();
     _recipesController.close();
+    super.dispose();
   }
 
-  void fetchRecipes() async {
+  void _fetchRecipes() async {
     final result = await _recipeRepository.getRecipes();
-
-    switch (result) {
-      case Error<List<Recipe>>():
-        debugPrint(result.e);
-        _recipesController.add([]);
-        break;
-      case Success<List<Recipe>>():
-        final recipes = result.data;
-        _initialRecipes = recipes;
-        _recipesController.add(recipes);
-        break;
-    }
+    _handleRecipeResult(result);
   }
 
-  void getRecipesByCategory(String category) async {
+  void _fetchRecipesByCategory(String category) async {
     final result = await _recipeRepository.getRecipesByCategory(category);
+    _handleRecipeResult(result);
+  }
 
+  void _handleRecipeResult(Result<List<Recipe>> result) {
     switch (result) {
       case Error<List<Recipe>>():
         debugPrint(result.e);
@@ -66,6 +62,9 @@ class HomeViewModel with ChangeNotifier {
         break;
       case Success<List<Recipe>>():
         final recipes = result.data;
+        if (_categoryState == 'All') {
+          _initialRecipes = recipes;
+        }
         _recipesController.add(recipes);
         break;
     }
